@@ -12,6 +12,7 @@ export const theme = {
     availableM16: "500 16px/22px 'Pretendard Variable', Pretendard",
     availableM14: "500 14px 'Pretendard Variable', Pretendard",
   },
+
   colors: {
     textStrong: '#14142B',
     textBold: '#4E4B66',

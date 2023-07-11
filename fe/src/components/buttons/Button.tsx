@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import IconClose from '../../assets/icon_closed.svg';
 import IconEdit from '../../assets/icon_edit.svg';
 import IconHistory from '../../assets/icon_history.svg';
@@ -26,6 +26,7 @@ const StyledButton = styled.button<ButtonProps>`
       : text === '취소' || text === '닫기'
       ? colors.textDefault
       : colors.textWhiteDefault};
+
   background-color: ${({ variant, text, theme: { colors } }) =>
     variant === 'contained'
       ? text === '취소'
@@ -36,17 +37,21 @@ const StyledButton = styled.button<ButtonProps>`
         ? colors.surfaceDanger
         : colors.surfaceDefault
       : 'transparent'};
+
   width: ${({ variant, pattern }) =>
     variant === 'contained' && pattern === 'text-only' ? '132px' : 'auto'};
+
   height: ${({ variant, pattern }) =>
     (variant === 'contained' && pattern === 'text-only') ||
     pattern === 'icon-text'
       ? '32px'
       : 'auto'};
+
   img {
     width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : 'auto')};
     margin-right: ${({ pattern }) => (pattern === 'icon-text' ? '4px' : '0px')};
   }
+
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
 
   ${({ variant, disabled }) =>
@@ -57,6 +62,17 @@ const StyledButton = styled.button<ButtonProps>`
       opacity: 0.8;
     }
   `}
+
+  ${({ pattern, icon, theme: { colors } }) =>
+    pattern === 'icon-only' &&
+    icon === 'close' &&
+    `
+      &:hover {
+        svg path {
+          fill: ${colors.surfaceDanger};
+        }
+      }
+    `}
 `;
 
 const Button: React.FC<ButtonProps> = ({
