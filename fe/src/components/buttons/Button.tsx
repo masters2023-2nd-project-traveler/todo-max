@@ -13,28 +13,20 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const StyledButton = styled.button<ButtonProps>(
-  ({ variant, pattern, text, disabled, theme: { fonts, colors, border } }) => `
+const StyledButton = styled.button<ButtonProps>`
   display: flex;
   padding: 0px 8px;
   justify-content: center;
   align-items: center;
-  border-radius: ${border.radius8};
-
-  font : ${fonts.displayB14};
-/*   font-weight: ${fonts.displayB14.fontWeight};
-  font-size: ${fonts.displayB14.fontSize};
-  font-family: 'Pretendard Variable', Pretendard; */
-
-  color: ${
+  border-radius: ${({ theme: { border } }) => border.radius8};
+  font: ${({ theme: { fonts } }) => fonts.displayB14};
+  color: ${({ text, theme: { colors } }) =>
     text === '기록 전체 삭제'
       ? colors.textDanger
       : text === '취소' || text === '닫기'
       ? colors.textDefault
-      : colors.textWhiteDefault
-  };
-
-  background-color: ${
+      : colors.textWhiteDefault};
+  background-color: ${({ variant, text, theme: { colors } }) =>
     variant === 'contained'
       ? text === '취소'
         ? colors.surfaceAlt
@@ -43,28 +35,29 @@ const StyledButton = styled.button<ButtonProps>(
         : text === '삭제'
         ? colors.surfaceDanger
         : colors.surfaceDefault
-      : 'transparent'
-  };
-
-  width: ${
-    variant === 'contained' && pattern === 'text-only' ? '132px' : 'auto'
-  };
-  
-  height: ${
+      : 'transparent'};
+  width: ${({ variant, pattern }) =>
+    variant === 'contained' && pattern === 'text-only' ? '132px' : 'auto'};
+  height: ${({ variant, pattern }) =>
     (variant === 'contained' && pattern === 'text-only') ||
     pattern === 'icon-text'
       ? '32px'
-      : 'auto'
-  };
-
+      : 'auto'};
   img {
-    width: ${pattern === 'icon-text' ? '16px' : 'auto'};
-    margin-right: ${pattern === 'icon-text' ? '4px' : '0px'};
+    width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : 'auto')};
+    margin-right: ${({ pattern }) => (pattern === 'icon-text' ? '4px' : '0px')};
   }
+  opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
 
-  opacity: ${disabled ? 0.3 : 1};
-`,
-);
+  ${({ variant, disabled }) =>
+    variant === 'contained' &&
+    !disabled &&
+    `
+    &:hover {
+      opacity: 0.8;
+    }
+  `}
+`;
 
 const Button: React.FC<ButtonProps> = ({
   variant,
