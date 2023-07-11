@@ -21,9 +21,11 @@ const StyledButton = styled.button<ButtonProps>(
   justify-content: center;
   align-items: center;
   border-radius: ${border.radius8};
-  font-weight: ${fonts.displayB14.fontWeight};
+
+  font : ${fonts.displayB14};
+/*   font-weight: ${fonts.displayB14.fontWeight};
   font-size: ${fonts.displayB14.fontSize};
-  font-family: 'Pretendard Variable', Pretendard;
+  font-family: 'Pretendard Variable', Pretendard; */
 
   color: ${
     text === '기록 전체 삭제'

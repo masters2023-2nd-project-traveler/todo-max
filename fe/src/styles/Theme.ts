@@ -1,49 +1,16 @@
 export const theme = {
   fonts: {
-    displayB24: {
-      fontWeight: 700,
-      fontSize: '24px',
-    },
-    displayB16: {
-      fontWeight: 700,
-      fontSize: '16px',
-    },
-    displayB14: {
-      fontWeight: 700,
-      fontSize: '14px',
-    },
-    displayB12: {
-      fontWeight: 700,
-      fontSize: '12px',
-    },
-    displayM16: {
-      fontWeight: 500,
-      fontSize: '16px',
-    },
-    displayM14: {
-      fontWeight: 500,
-      fontSize: '14px',
-    },
-    displayM12: {
-      fontWeight: 500,
-      fontSize: '12px',
-    },
-    selectedB16: {
-      fontWeight: 700,
-      fontSize: '16px',
-    },
-    selectedB14: {
-      fontWeight: 700,
-      fontSize: '14px',
-    },
-    availableM16: {
-      fontWeight: 500,
-      fontSize: '16px',
-    },
-    availableM14: {
-      fontWeight: 500,
-      fontSize: '14px',
-    },
+    displayB24: "700 24px 'Pretendard Variable', Pretendard",
+    displayB16: "700 16px 'Pretendard Variable', Pretendard",
+    displayB14: "700 14px 'Pretendard Variable', Pretendard",
+    displayB12: "700 12px 'Pretendard Variable', Pretendard",
+    displayM16: "500 16px/22px 'Pretendard Variable', Pretendard",
+    displayM14: "500 14px 'Pretendard Variable', Pretendard",
+    displayM12: "500 12px 'Pretendard Variable', Pretendard",
+    selectedB16: "700 16px 'Pretendard Variable', Pretendard",
+    selectedB14: "700 14px 'Pretendard Variable', Pretendard",
+    availableM16: "500 16px/22px 'Pretendard Variable', Pretendard",
+    availableM14: "500 14px 'Pretendard Variable', Pretendard",
   },
   colors: {
     textStrong: '#14142B',
