@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
+import { Dummy } from './components/Dummy';
+import { DummyTwo } from './components/DummyTwo';
 
 function App() {
   useEffect(() => {
@@ -14,6 +16,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Title>test</Title>
+      <Dummy />
+      <DummyTwo />
     </ThemeProvider>
   );
 }

@@ -1,18 +1,50 @@
 export const theme = {
   fonts: {
-    displayB24: "700 24px 'Pretendard', sans-serif;",
-    displayB16: "700 16px 'Pretendard', sans-serif;",
-    displayB14: "700 14px 'Pretendard', sans-serif;",
-    displayB12: "700 12px 'Pretendard', sans-serif;",
-    displayM16: "500 16px 'Pretendard', sans-serif;",
-    displayM14: "500 14px 'Pretendard', sans-serif;",
-    displayM12: "500 12px 'Pretendard', sans-serif;",
-    selectedB16: "700 16px 'Pretendard', sans-serif;",
-    selectedB14: "700 14px 'Pretendard', sans-serif;",
-    availableM16: "500 16px 'Pretendard', sans-serif;",
-    availableM14: "500 14px 'Pretendard', sans-serif;",
+    displayB24: {
+      fontWeight: 700,
+      fontSize: '24px',
+    },
+    displayB16: {
+      fontWeight: 700,
+      fontSize: '16px',
+    },
+    displayB14: {
+      fontWeight: 700,
+      fontSize: '14px',
+    },
+    displayB12: {
+      fontWeight: 700,
+      fontSize: '12px',
+    },
+    displayM16: {
+      fontWeight: 500,
+      fontSize: '16px',
+    },
+    displayM14: {
+      fontWeight: 500,
+      fontSize: '14px',
+    },
+    displayM12: {
+      fontWeight: 500,
+      fontSize: '12px',
+    },
+    selectedB16: {
+      fontWeight: 700,
+      fontSize: '16px',
+    },
+    selectedB14: {
+      fontWeight: 700,
+      fontSize: '14px',
+    },
+    availableM16: {
+      fontWeight: 500,
+      fontSize: '16px',
+    },
+    availableM14: {
+      fontWeight: 500,
+      fontSize: '14px',
+    },
   },
-
   colors: {
     textStrong: '#14142B',
     textBold: '#4E4B66',
