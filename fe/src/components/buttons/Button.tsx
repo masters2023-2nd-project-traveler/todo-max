@@ -8,7 +8,6 @@ import IconPlus from '../../assets/icon_plus.svg';
 interface ButtonProps {
   variant: 'contained' | 'ghost';
   pattern: 'icon-only' | 'text-only' | 'icon-text';
-  // state?: 'enabled' | 'hover' | 'disabled';
   text?: string;
   icon?: 'close' | 'edit' | 'history' | 'plus';
   disabled?: boolean;

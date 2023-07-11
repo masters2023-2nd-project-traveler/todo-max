@@ -18,13 +18,6 @@ export function DummyTwo() {
       <Button variant="ghost" pattern="icon-only" icon="close" />
       <Button variant="ghost" pattern="icon-only" icon="history" />
       <Button variant="ghost" pattern="icon-only" icon="plus" />
-      {/* <Button
-        variant="contained"
-        pattern="icon-only"
-        state="enabled"
-        icon="closed"
-        disabled={false} // or you can just remove this line
-      /> */}
     </>
   );
 }

@@ -16,7 +16,6 @@ export function Dummy() {
       <Button
         variant="contained"
         pattern="text-only"
-        // state={isInputEmpty ? 'disabled' : 'enabled'}
         text="등록"
         disabled={isInputEmpty}
       />
