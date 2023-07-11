@@ -105,8 +105,7 @@ const Button: React.FC<ButtonProps> = ({
       icon={icon}
       disabled={disabled}
     >
-      {pattern === 'icon-text' && renderIcon()}
-      {pattern === 'icon-only' && renderIcon()}
+      {(pattern === 'icon-text' || pattern === 'icon-only') && renderIcon()}
       {pattern !== 'icon-only' && text}
     </StyledButton>
   );
