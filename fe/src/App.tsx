@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
+
+import { HeaderTitle } from './components/HeaderTitle';
+import { Button } from './components/buttons/Button';
+import { ActionHistory } from './components/ActionHistory';
 import { Dummy } from './components/Dummy';
 import { DummyTwo } from './components/DummyTwo';
 
@@ -15,8 +19,15 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <HeaderLayout>헤더영역</HeaderLayout>
-      <MainLayout>메인영역</MainLayout>
+      <HeaderLayout>
+        <HeaderTitle />
+        <Button variant="ghost" pattern="icon-only" icon="history" />
+        {/* <ActionHistory /> */}
+      </HeaderLayout>
+      <MainLayout>
+        <Dummy />
+        <DummyTwo />
+      </MainLayout>
     </ThemeProvider>
   );
 }
