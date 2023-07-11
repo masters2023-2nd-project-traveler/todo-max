@@ -5,7 +5,15 @@ import IconEdit from '../../assets/icon_edit.svg';
 import IconHistory from '../../assets/icon_history.svg';
 import IconPlus from '../../assets/icon_plus.svg';
 
-const Button: React.FC<ButtonProps> = ({
+interface ButtonProps {
+  variant: 'contained' | 'ghost';
+  pattern: 'icon-only' | 'text-only' | 'icon-text';
+  text?: string;
+  icon?: 'close' | 'edit' | 'history' | 'plus';
+  disabled?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
   variant,
   pattern,
   text,
@@ -40,16 +48,6 @@ const Button: React.FC<ButtonProps> = ({
     </StyledButton>
   );
 };
-
-export default Button;
-
-interface ButtonProps {
-  variant: 'contained' | 'ghost';
-  pattern: 'icon-only' | 'text-only' | 'icon-text';
-  text?: string;
-  icon?: 'close' | 'edit' | 'history' | 'plus';
-  disabled?: boolean;
-}
 
 const StyledButton = styled.button<ButtonProps>`
   display: flex;
