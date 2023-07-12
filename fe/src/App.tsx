@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
+
+import { HeaderTitle } from './components/HeaderTitle';
+import { Button } from './components/buttons/Button';
+import { ActionHistory } from './components/ActionHistory';
 import { Dummy } from './components/Dummy';
 import { DummyTwo } from './components/DummyTwo';
 import { ActionHistory } from './components/ActionHistory';
@@ -19,7 +23,7 @@ function App() {
       <HeaderLayout>
         <ActionHistory />
       </HeaderLayout>
-      <MainLayout>메인영역</MainLayout>
+      <MainLayout></MainLayout>
     </ThemeProvider>
   );
 }
