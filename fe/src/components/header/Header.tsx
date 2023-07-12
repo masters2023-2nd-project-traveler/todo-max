@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button } from '../buttons/Button';
 import { ActionHistory } from '../actionHistory/ActionHistory';
+import { HeaderTitle } from './HeaderTitle';
 
 export const Header = () => {
   const [isActionHistoryVisible, setActionHistoryVisible] = useState(false);
@@ -12,6 +13,7 @@ export const Header = () => {
 
   return (
     <HeaderLayout>
+      <HeaderTitle />
       <Button
         variant="ghost"
         pattern="icon-only"
