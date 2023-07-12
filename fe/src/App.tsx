@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
 import { Dummy } from './components/Dummy';
 import { DummyTwo } from './components/DummyTwo';
+import { ActionHistory } from './components/ActionHistory';
 
 function App() {
   useEffect(() => {
@@ -15,7 +16,9 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <HeaderLayout>헤더영역</HeaderLayout>
+      <HeaderLayout>
+        <ActionHistory />
+      </HeaderLayout>
       <MainLayout>메인영역</MainLayout>
     </ThemeProvider>
   );

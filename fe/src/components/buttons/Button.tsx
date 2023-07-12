@@ -52,7 +52,8 @@ export const Button: React.FC<ButtonProps> = ({
 const StyledButton = styled.button<ButtonProps>`
   display: flex;
   padding: 0px 8px;
-  justify-content: center;
+  justify-content: ${({ text }) =>
+    text === '기록 전체 삭제' ? 'flex-end' : 'center'};
   align-items: center;
   border-radius: ${({ theme: { border } }) => border.radius8};
   font: ${({ theme: { fonts } }) => fonts.displayB14};
