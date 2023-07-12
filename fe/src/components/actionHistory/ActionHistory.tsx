@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from './buttons/Button';
+import { Button } from '../buttons/Button';
 import { ActionList } from './ActionList';
 
 export function ActionHistory() {

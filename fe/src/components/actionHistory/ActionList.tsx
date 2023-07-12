@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { ActionListEmpty } from './ActionListEmpty';
 import { ActionListItem } from './ActionListItem';
-import { Button } from './buttons/button';
 import React from 'react';
+import { Button } from '../buttons/Button';
 
 export function ActionList() {
   // const isListEmpty = data.length === 0;

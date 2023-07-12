@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
-
 import { HeaderTitle } from './components/HeaderTitle';
 import { Button } from './components/buttons/Button';
-import { ActionHistory } from './components/ActionHistory';
-import { Dummy } from './components/Dummy';
-import { DummyTwo } from './components/DummyTwo';
-import { ActionHistory } from './components/ActionHistory';
+
+import { ActionHistory } from './components/actionHistory/ActionHistory';
+import {  ModalComponent } from './components/modal/Modal';
 
 function App() {
   useEffect(() => {
@@ -21,7 +19,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <HeaderLayout>
-        <ActionHistory />
+        {/* <ActionHistory /> */}
+        <ModalComponent alertText={'선택한 카드를 삭제할까요?'} />
       </HeaderLayout>
       <MainLayout></MainLayout>
     </ThemeProvider>
