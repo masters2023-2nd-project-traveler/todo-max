@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { Button } from '../buttons/Button';
 import { ActionList } from './ActionList';
 
-export const ActionHistory = () => {
+interface ActionHistoryProps {
+  onClose: () => void;
+}
+
+export const ActionHistory: React.FC<ActionHistoryProps> = ({ onClose }) => {
   return (
     <StyledActionHistory>
       <div className="titleArea">
@@ -12,6 +16,7 @@ export const ActionHistory = () => {
           pattern="icon-text"
           text="닫기"
           icon="close"
+          onClick={onClose}
         />
       </div>
       <ActionList />

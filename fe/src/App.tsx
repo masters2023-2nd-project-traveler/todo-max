@@ -6,6 +6,7 @@ import { Button } from './components/buttons/Button';
 
 import { ActionHistory } from './components/actionHistory/ActionHistory';
 import { ModalComponent } from './components/modal/Modal';
+import { Header } from './components/header/Header';
 
 function App() {
   useEffect(() => {
@@ -18,23 +19,24 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <HeaderLayout>
+      {/* <HeaderLayout>
+        <Button variant="ghost" pattern="icon-only" icon="history" />
         <ActionHistory />
-        {/* <ModalComponent alertText={'선택한 카드를 삭제할까요?'} /> */}
-      </HeaderLayout>
+      </HeaderLayout> */}
+      <Header />
       <MainLayout></MainLayout>
     </ThemeProvider>
   );
 }
 
-const HeaderLayout = styled.div`
-  display: flex;
-  height: 64px;
-  padding: 18px 80px 17px 80px;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${(props) => props.theme.colors.surfaceAlt};
-`;
+// const HeaderLayout = styled.div`
+//   display: flex;
+//   height: 64px;
+//   padding: 18px 80px 17px 80px;
+//   justify-content: space-between;
+//   align-items: center;
+//   background-color: ${(props) => props.theme.colors.surfaceAlt};
+// `;
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
