@@ -24,10 +24,7 @@ function App() {
         <Button variant="ghost" pattern="icon-only" icon="history" />
         {/* <ActionHistory /> */}
       </HeaderLayout>
-      <MainLayout>
-        <Dummy />
-        <DummyTwo />
-      </MainLayout>
+      <MainLayout></MainLayout>
     </ThemeProvider>
   );
 }
