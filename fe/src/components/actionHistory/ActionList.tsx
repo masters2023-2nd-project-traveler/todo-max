@@ -4,7 +4,7 @@ import { ActionListItem } from './ActionListItem';
 import React from 'react';
 import { Button } from '../buttons/Button';
 
-export function ActionList() {
+export const ActionList = () => {
   // const isListEmpty = data.length === 0;
   const isListEmpty = false;
 
@@ -37,7 +37,7 @@ export function ActionList() {
       )}
     </StyledActionList>
   );
-}
+};
 
 const StyledActionList = styled.ul`
   display: flex;

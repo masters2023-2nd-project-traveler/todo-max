@@ -5,7 +5,7 @@ import { HeaderTitle } from './components/HeaderTitle';
 import { Button } from './components/buttons/Button';
 
 import { ActionHistory } from './components/actionHistory/ActionHistory';
-import {  ModalComponent } from './components/modal/Modal';
+import { ModalComponent } from './components/modal/Modal';
 
 function App() {
   useEffect(() => {
@@ -19,8 +19,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <HeaderLayout>
-        {/* <ActionHistory /> */}
-        <ModalComponent alertText={'선택한 카드를 삭제할까요?'} />
+        <ActionHistory />
+        {/* <ModalComponent alertText={'선택한 카드를 삭제할까요?'} /> */}
       </HeaderLayout>
       <MainLayout></MainLayout>
     </ThemeProvider>
