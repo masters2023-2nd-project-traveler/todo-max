@@ -1,19 +1,37 @@
 import styled from 'styled-components';
 import UserImage from '../assets/user_Image.svg';
 
-export function ActionListItem({ userId, action, timeStamp }: any) {
+type ActionListItemProps = {
+  title: string;
+  from: string;
+  to: string;
+  action: string;
+  createdTime: string;
+  userName: string;
+  imageUrl: string;
+};
+
+export function ActionListItem({
+  title,
+  from,
+  to,
+  action,
+  createdTime,
+  userName,
+  imageUrl,
+}: ActionListItemProps) {
   return (
     <StyledListItem>
       <img src={UserImage} alt="UserImage" />
       <StyledListItemBody>
-        <StyledUserId>@멋진삼{userId}</StyledUserId>
+        <StyledUserId>@{userName}</StyledUserId>
         <StyledActionBody>
-          <StyledBold>{action}블로그에 포스팅할 것</StyledBold>
-          을(를) <StyledBold>{action}하고있는 일</StyledBold>에서{' '}
-          <StyledBold>{action}해야할 일</StyledBold>으로{' '}
-          <StyledBold>{action}이동</StyledBold>하였습니다.
+          <StyledBold>{title}</StyledBold>
+          을(를) <StyledBold>{from}</StyledBold>에서{' '}
+          <StyledBold>{to}</StyledBold>으로 <StyledBold>{action}</StyledBold>
+          하였습니다.
         </StyledActionBody>
-        <StyledTimeStamp>{timeStamp}3분전</StyledTimeStamp>
+        <StyledTimeStamp>{createdTime}3분전</StyledTimeStamp>
       </StyledListItemBody>
     </StyledListItem>
   );

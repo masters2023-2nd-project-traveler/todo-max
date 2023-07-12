@@ -8,6 +8,7 @@ import { rest } from 'msw';
 // import decaffein from './data/decaffein';
 // import recipe from './data/recipe';
 import coffeeDrinks from './data/list';
+import { actionHistory } from './data/actionHistory';
 
 const handlers = [
   // rest.get('http://52.79.68.54:8080/drinks', (req, res, ctx) => {
@@ -39,6 +40,10 @@ const handlers = [
 
   rest.get('http://52.79.68.54:8080/categories', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(coffeeDrinks));
+  }),
+
+  rest.get('http://52.79.68.54:8080/todolisturl', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(actionHistory));
   }),
 
   // rest.get('http://52.79.68.54:8080/recipe', (req, res, ctx) => {
