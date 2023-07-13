@@ -91,22 +91,11 @@ const ButtonLayout = styled.button<ButtonProps>`
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
 
   ${({ variant, disabled }) =>
-    variant === 'contained' &&
+    (variant === 'contained' || variant === 'ghost') &&
     !disabled &&
     `
     &:hover {
       opacity: 0.8;
     }
   `}
-
-  ${({ pattern, icon, theme: { colors } }) =>
-    pattern === 'icon-only' &&
-    icon === 'close' &&
-    css`
-      &:hover {
-        svg path {
-          fill: ${colors.surfaceDanger};
-        }
-      }
-    `}
 `;
