@@ -7,15 +7,12 @@ type Mode = 'default' | 'addEdit' | 'drag' | 'place';
 interface Task {
   title: string;
   contents: string;
-  platform: string;
-}
-
-interface CardStyledProps {
-  mode: Mode;
+  platform?: string;
 }
 
 interface CardProps extends Task {
   mode: Mode;
+  onSubmit?: (title: string, body: string) => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -23,14 +20,27 @@ export const Card: React.FC<CardProps> = ({
   title,
   contents,
   platform,
+  onSubmit,
 }) => {
+  const [titleInputValue, setTitleInputValue] = useState('');
   const [bodyinputValue, setBodyInputValue] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleInputValue(e.target.value);
+  };
+
+  const handleBodyInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBodyInputValue(e.target.value);
   };
 
-  const isInputEmpty = bodyinputValue.length === 0;
+  const isInputEmpty =
+    titleInputValue.length === 0 || bodyinputValue.length === 0;
+
+  const handleButtonClick = () => {
+    if (onSubmit && !isInputEmpty) {
+      onSubmit(titleInputValue, bodyinputValue);
+    }
+  };
 
   return (
     <CardLayout mode={mode} className="card">
@@ -40,13 +50,14 @@ export const Card: React.FC<CardProps> = ({
             placeholder={title}
             className="title"
             type="text"
+            onChange={handleTitleInputChange}
             title="제목"
           />
           <input
             placeholder={contents}
             className="body"
             type="text"
-            onChange={handleInputChange}
+            onChange={handleBodyInputChange}
             title="내용"
           />
           <div className="btns">
@@ -56,6 +67,7 @@ export const Card: React.FC<CardProps> = ({
               pattern="text-only"
               text="등록"
               disabled={isInputEmpty}
+              onClick={handleButtonClick}
             />
           </div>
         </>
@@ -76,7 +88,11 @@ export const Card: React.FC<CardProps> = ({
   );
 };
 
-export const CardLayout = styled.div<CardStyledProps>`
+interface CardStyledProps {
+  mode: Mode;
+}
+
+const CardLayout = styled.div<CardStyledProps>`
   width: 300px;
   padding: 16px;
   cursor: pointer;
