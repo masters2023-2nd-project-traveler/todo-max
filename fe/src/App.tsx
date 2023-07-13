@@ -1,29 +1,20 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { theme } from './styles/Theme';
-
-import { HeaderTitle } from './components/HeaderTitle';
-import { Button } from './components/buttons/Button';
-import { ActionHistory } from './components/ActionHistory';
-import { Dummy } from './components/Dummy';
-import { DummyTwo } from './components/DummyTwo';
-import { ActionHistory } from './components/ActionHistory';
+import GlobalStyles from './styles/GlobalStyles.ts';
+import { ColumnList } from './components/main/ColumnList';
+import { ActionHistory } from './components/ActionHistory.tsx';
 
 function App() {
-  useEffect(() => {
-    fetch('http://52.79.68.54:8080/categories')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
-
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <HeaderLayout>
         <ActionHistory />
       </HeaderLayout>
-      <MainLayout></MainLayout>
+      <MainLayout>
+        <ColumnList />
+      </MainLayout>
     </ThemeProvider>
   );
 }
@@ -39,7 +30,6 @@ const HeaderLayout = styled.div`
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
-  height: 960px;
   background-color: ${(props) => props.theme.colors.surfaceAlt};
 `;
 

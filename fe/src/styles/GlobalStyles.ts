@@ -94,14 +94,13 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    background-color: #F7F7FC;
   }
 
   html {
-    width: 1440px;
+    width: 100vw;
     margin: 0 auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    height: 100vh;
   };
 `;
 

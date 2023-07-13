@@ -3,28 +3,32 @@ import { Button } from '../buttons/Button';
 
 type Mode = 'default' | 'addEdit' | 'drag' | 'place';
 
-interface CardData {
+interface Task {
   title: string;
-  body: string;
-  author: string;
+  contents: string;
+  platform: string;
 }
 
 interface CardStyledProps {
   mode: Mode;
 }
 
-interface CardProps {
+interface CardProps extends Task {
   mode: Mode;
-  data: CardData;
 }
 
-export const CardComponent: React.FC<CardProps> = ({ mode, data }) => {
+export const CardComponent: React.FC<CardProps> = ({
+  mode,
+  title,
+  contents,
+  platform,
+}) => {
   return (
     <Card mode={mode} className="card">
       {mode === 'addEdit' ? (
         <>
-          <h2 className="title">{data.title}</h2>
-          <p className="body">{data.body}</p>
+          <h2 className="title">{title}</h2>
+          <p className="body">{contents}</p>
           <div className="btns">
             <Button variant="contained" pattern="text-only" text="취소" />
             <Button variant="contained" pattern="text-only" text="등록" />
@@ -33,9 +37,9 @@ export const CardComponent: React.FC<CardProps> = ({ mode, data }) => {
       ) : (
         <>
           <div className="textArea">
-            <h2 className="title">{data.title}</h2>
-            <p className="body">{data.body}</p>
-            <p className="caption">{data.author}</p>
+            <h2 className="title">{title}</h2>
+            <p className="body">{contents}</p>
+            <p className="caption">author by {platform}</p>
           </div>
           <div className="iconBtns">
             <Button variant="ghost" pattern="icon-only" icon="close" />
@@ -46,6 +50,8 @@ export const CardComponent: React.FC<CardProps> = ({ mode, data }) => {
     </Card>
   );
 };
+
+// ... rest of the component
 
 export const Card = styled.div<CardStyledProps>`
   width: 300px;
