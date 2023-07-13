@@ -1,41 +1,61 @@
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ActionListEmpty } from './ActionListEmpty';
 import { ActionListItem } from './ActionListItem';
-import React from 'react';
 import { Button } from '../buttons/Button';
+import { Modal } from '../modal/Modal';
 
 export const ActionList = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const onClose = () => {
+    setIsVisible((prevVisible) => !prevVisible);
+  };
+
   // const isListEmpty = data.length === 0;
   const isListEmpty = false;
 
   return (
-    <ActionListLayout>
-      {isListEmpty ? (
-        <ActionListEmpty />
-      ) : (
-        <>
-          {actionHistory.message.map((item: any, index: number) => (
-            <React.Fragment key={item.title}>
-              <ActionListItem
-                title={item.title}
-                from={item.from}
-                to={item.to}
-                action={item.action}
-                createdTime={item.createdTime}
-                userName={item.userName}
-                imageUrl={item.imageUrl}
+    <>
+      <ActionListLayout>
+        {isListEmpty ? (
+          <ActionListEmpty />
+        ) : (
+          <>
+            {actionHistory.message.map((item: any, index: number) => (
+              <React.Fragment key={item.title}>
+                <ActionListItem
+                  title={item.title}
+                  from={item.from}
+                  to={item.to}
+                  action={item.action}
+                  createdTime={item.createdTime}
+                  userName={item.userName}
+                  imageUrl={item.imageUrl}
+                />
+                {index !== actionHistory.message.length - 1 && (
+                  <DividingLineLayout></DividingLineLayout>
+                )}
+              </React.Fragment>
+            ))}
+            <ButtonLayout>
+              <Button
+                variant="ghost"
+                pattern="text-only"
+                text="기록 전체 삭제"
+                onClick={onClose}
               />
-              {index !== actionHistory.message.length - 1 && (
-                <DividingLineLayout></DividingLineLayout>
-              )}
-            </React.Fragment>
-          ))}
-          <ButtonLayout>
-            <Button variant="ghost" pattern="text-only" text="기록 전체 삭제" />
-          </ButtonLayout>
-        </>
+            </ButtonLayout>
+          </>
+        )}
+      </ActionListLayout>
+      {isVisible && (
+        <Modal
+          alertText="모든 사용자 활동 기록을 삭제할까요?"
+          onClose={onClose}
+        />
       )}
-    </ActionListLayout>
+    </>
   );
 };
 

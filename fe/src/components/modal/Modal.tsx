@@ -1,22 +1,40 @@
 import styled from 'styled-components';
+import ReactDOM from 'react-dom';
 import { Button } from '../buttons/Button';
 
 interface ModalProps {
   alertText: string;
+  onClose?: () => void;
+  onClick?: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = ({ alertText }) => {
-  return (
+export const Modal: React.FC<ModalProps> = ({
+  alertText,
+  onClose,
+  onClick,
+}) => {
+  return ReactDOM.createPortal(
     <>
-      <DimLayout></DimLayout>
+      <DimLayout onClick={onClose}></DimLayout>
       <ModalLayout>
         <p className="body">{alertText}</p>
         <div className="btns">
-          <Button variant="contained" pattern="text-only" text="취소" />
-          <Button variant="contained" pattern="text-only" text="삭제" />
+          <Button
+            variant="contained"
+            pattern="text-only"
+            text="취소"
+            onClick={onClose}
+          />
+          <Button
+            variant="contained"
+            pattern="text-only"
+            text="삭제"
+            onClick={onClick}
+          />
         </div>
       </ModalLayout>
-    </>
+    </>,
+    document.getElementById('root') as HTMLElement,
   );
 };
 
