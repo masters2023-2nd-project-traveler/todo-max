@@ -5,19 +5,12 @@ import { ActionHistory } from '../actionHistory/ActionHistory';
 import { HeaderTitle } from './HeaderTitle';
 
 export const Header = () => {
-  // const [isVisible, setIsVisible] = useState(false);
-  // const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const onMove = () => {
     setIsAnimating(true);
-    if (isVisible) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
+    setIsVisible((prevVisible) => !prevVisible);
   };
 
   const onAnimationEnd = () => {
@@ -25,12 +18,6 @@ export const Header = () => {
       setIsAnimating(false);
     }
   };
-
-  // const handleHistoryClick = (newDirection) => {
-  //   setDirection(newDirection);
-  //   setIsVisible((prevState) => !prevState);
-  //   // setIsVisible(!isVisible);
-  // };
 
   return (
     <HeaderLayout>
@@ -41,13 +28,6 @@ export const Header = () => {
         icon="history"
         onClick={onMove}
       />
-      {/* {isVisible && (
-        <ActionHistory
-          isVisible={isVisible}
-          onClose={onMove}
-          onAnimationEnd={onAnimationEnd}
-        />
-      )} */}
       {isAnimating && (
         <ActionHistory
           isVisible={isVisible}
