@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export function HeaderTitle() {
-  return <StyledHeaderTitle>TODO List</StyledHeaderTitle>;
+  return <HeaderTitleLayout>TODO List</HeaderTitleLayout>;
 }
 
-const StyledHeaderTitle = styled.h1`
+const HeaderTitleLayout = styled.h1`
   font: ${({ theme: { fonts } }) => fonts.displayB24};
   color: ${({ theme: { colors } }) => colors.textStrong};
 `;

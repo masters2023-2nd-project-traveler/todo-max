@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CardComponent as Card } from '../card/Card';
+import { Card } from '../card/Card';
 
 type Task = {
   taskId: number;

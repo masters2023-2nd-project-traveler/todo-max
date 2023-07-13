@@ -9,7 +9,7 @@ export const ActionList = () => {
   const isListEmpty = false;
 
   return (
-    <StyledActionList>
+    <ActionListLayout>
       {isListEmpty ? (
         <ActionListEmpty />
       ) : (
@@ -30,24 +30,24 @@ export const ActionList = () => {
               )}
             </React.Fragment>
           ))}
-          <StyledButtonContainer>
+          <ButtonLayout>
             <Button variant="ghost" pattern="text-only" text="기록 전체 삭제" />
-          </StyledButtonContainer>
+          </ButtonLayout>
         </>
       )}
-    </StyledActionList>
+    </ActionListLayout>
   );
 };
 
-const StyledActionList = styled.ul`
+const ActionListLayout = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  aling-items: center;
+  align-items: center;
   width: 350px;
 `;
 
-const StyledButtonContainer = styled.div`
+const ButtonLayout = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;

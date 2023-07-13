@@ -38,7 +38,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <StyledButton
+    <ButtonLayout
       variant={variant}
       pattern={pattern}
       text={text}
@@ -48,11 +48,11 @@ export const Button: React.FC<ButtonProps> = ({
     >
       {(pattern === 'icon-text' || pattern === 'icon-only') && renderIcon()}
       {pattern !== 'icon-only' && text}
-    </StyledButton>
+    </ButtonLayout>
   );
 };
 
-const StyledButton = styled.button<ButtonProps>`
+const ButtonLayout = styled.button<ButtonProps>`
   display: flex;
   padding: 0px 8px;
   justify-content: ${({ text }) =>
@@ -84,7 +84,7 @@ const StyledButton = styled.button<ButtonProps>`
   height: ${({ pattern }) => (pattern !== 'icon-only' ? '32px' : 'auto')};
 
   img {
-    width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : 'auto')};
+    width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : '24px')};
     margin-right: ${({ pattern }) => (pattern === 'icon-text' ? '4px' : '0px')};
   }
 

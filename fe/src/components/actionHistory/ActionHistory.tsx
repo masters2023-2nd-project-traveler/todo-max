@@ -18,7 +18,7 @@ export const ActionHistory: React.FC<ActionHistoryProps> = ({
   isVisible,
 }) => {
   return (
-    <StyledActionHistory isVisible={isVisible} onAnimationEnd={onAnimationEnd}>
+    <ActionHistoryLayout isVisible={isVisible} onAnimationEnd={onAnimationEnd}>
       <div className="titleArea">
         <p className="titleText">사용자 활동 기록</p>
         <Button
@@ -30,11 +30,11 @@ export const ActionHistory: React.FC<ActionHistoryProps> = ({
         />
       </div>
       <ActionList />
-    </StyledActionHistory>
+    </ActionHistoryLayout>
   );
 };
 
-const StyledActionHistory = styled.div<StyleProps>`
+const ActionHistoryLayout = styled.div<StyleProps>`
   animation: ${(props) => (props.isVisible ? slideIn : slideOut)} 0.5s;
   animation-fill-mode: forwards;
   position: absolute;
@@ -51,7 +51,7 @@ const StyledActionHistory = styled.div<StyleProps>`
   .titleArea {
     display: flex;
     justify-content: space-between;
-    aling-items: center;
+    align-items: center;
     width: 350px;
     padding: 8px 8px 8px 16px;
   }

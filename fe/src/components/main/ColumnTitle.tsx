@@ -29,6 +29,7 @@ export const TitleLayout = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
   width: 300px;
+  padding: 0px 16px;
 
   .textArea,
   .iconBtns {
@@ -46,7 +47,7 @@ export const TitleLayout = styled.div`
     & p {
       font: ${({ theme: { fonts } }) => fonts.displayM12};
       color: ${({ theme: { colors } }) => colors.textWeak};
-      padding: 0 4px;
+      gap: 4px;
       width: 24px;
       height: 24px;
       display: flex;

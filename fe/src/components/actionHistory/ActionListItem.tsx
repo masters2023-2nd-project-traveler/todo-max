@@ -45,7 +45,7 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
   imageUrl,
 }) => {
   return (
-    <StyledListItem>
+    <ListItemLayout>
       <img src={UserImage} alt="UserImage" />
       <div className="itemBody">
         <span className="userName">@{userName}</span>
@@ -58,11 +58,11 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
         </span>
         <span className="createdTime">{formatTimeDifference(createdTime)}</span>
       </div>
-    </StyledListItem>
+    </ListItemLayout>
   );
 };
 
-const StyledListItem = styled.li`
+const ListItemLayout = styled.li`
   display: flex;
   align-items: flex-start;
   gap: 16px;

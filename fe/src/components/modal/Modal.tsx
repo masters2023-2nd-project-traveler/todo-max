@@ -1,32 +1,26 @@
 import styled from 'styled-components';
 import { Button } from '../buttons/Button';
 
-// type Mode = 'history' | 'card';
-
-// interface ModalStyledProps {
-//   mode: Mode;
-// }
-
 interface ModalProps {
   alertText: string;
 }
 
-export const ModalComponent: React.FC<ModalProps> = ({ alertText }) => {
+export const Modal: React.FC<ModalProps> = ({ alertText }) => {
   return (
     <>
-      <StyledDim></StyledDim>
-      <Modal>
+      <DimLayout></DimLayout>
+      <ModalLayout>
         <p className="body">{alertText}</p>
         <div className="btns">
           <Button variant="contained" pattern="text-only" text="취소" />
           <Button variant="contained" pattern="text-only" text="삭제" />
         </div>
-      </Modal>
+      </ModalLayout>
     </>
   );
 };
 
-const StyledDim = styled.div`
+const DimLayout = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -35,8 +29,8 @@ const StyledDim = styled.div`
   background: rgba(20, 33, 43, 0.3);
 `;
 
-export const Modal = styled.dialog`
-  position: absolute;
+export const ModalLayout = styled.dialog`
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);

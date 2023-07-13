@@ -46,6 +46,7 @@ const GlobalStyles = createGlobalStyle`
 
   dialog{
     border: none;
+    margin: 0;
   }
 
   button,
@@ -105,6 +106,7 @@ const GlobalStyles = createGlobalStyle`
     width: 100vw;
     margin: 0 auto;
     height: 100vh;
+
   };
 `;
 

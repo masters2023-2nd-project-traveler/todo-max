@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '../buttons/Button';
 
@@ -18,7 +18,7 @@ interface CardProps extends Task {
   mode: Mode;
 }
 
-export const CardComponent: React.FC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   mode,
   title,
   contents,
@@ -33,7 +33,7 @@ export const CardComponent: React.FC<CardProps> = ({
   const isInputEmpty = bodyinputValue.length === 0;
 
   return (
-    <Card mode={mode} className="card">
+    <CardLayout mode={mode} className="card">
       {mode === 'addEdit' ? (
         <>
           <input
@@ -72,13 +72,11 @@ export const CardComponent: React.FC<CardProps> = ({
           </div>
         </>
       )}
-    </Card>
+    </CardLayout>
   );
 };
 
-// ... rest of the component
-
-export const Card = styled.div<CardStyledProps>`
+export const CardLayout = styled.div<CardStyledProps>`
   width: 300px;
   padding: 16px;
   cursor: pointer;
@@ -99,9 +97,16 @@ export const Card = styled.div<CardStyledProps>`
     font: ${({ theme: { fonts } }) => fonts.displayM14};
     color: ${({ theme: { colors } }) => colors.textDefault};
   }
+
   .caption {
     font: ${({ theme: { fonts } }) => fonts.displayM12};
     color: ${({ theme: { colors } }) => colors.textWeak};
+  }
+
+  .iconBtns {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
   }
 
   ${(props) =>
@@ -109,6 +114,7 @@ export const Card = styled.div<CardStyledProps>`
     css`
       display: flex;
       justify-content: space-between;
+      gap: 16px;
     `}
 
   ${(props) =>
@@ -125,6 +131,7 @@ export const Card = styled.div<CardStyledProps>`
     css`
       display: flex;
       justify-content: space-between;
+      gap: 16px;
       box-shadow: ${({ theme: { shadows } }) => shadows.floating};
     `}
 
@@ -133,6 +140,7 @@ export const Card = styled.div<CardStyledProps>`
     css`
       display: flex;
       justify-content: space-between;
+      gap: 16px;
       opacity: 0.3;
     `}
 `;

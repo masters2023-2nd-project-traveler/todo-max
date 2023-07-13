@@ -21,29 +21,35 @@ export const ColumnList = () => {
       .then((response) => response.json())
       .then((data) => {
         setTodoListData(data.message);
-        // console.log(data);
         console.log(todoListData);
       });
   }, []);
 
   if (todoListData === null) {
-    return <div>Loading...</div>; // 데이터를 로딩하는 동안 표시될 메시지입니다.
+    return <div>Loading...</div>;
   }
 
   return (
-    <ColumnLayout>
-      {todoListData.map((item: TodoItem) => (
-        <ColumnItem
-          key={item.processId}
-          title={item.processName}
-          tasks={item.tasks}
-        />
-      ))}
-    </ColumnLayout>
+    <MainLayout>
+      <ColumnLayout>
+        {todoListData.map((item: TodoItem) => (
+          <ColumnItem
+            key={item.processId}
+            title={item.processName}
+            tasks={item.tasks}
+          />
+        ))}
+      </ColumnLayout>
+    </MainLayout>
   );
 };
 
-export const ColumnLayout = styled.div`
+const MainLayout = styled.div`
+  padding: 32px 80px 0;
+  background-color: ${(props) => props.theme.colors.surfaceAlt};
+`;
+
+const ColumnLayout = styled.div`
   width: 300px;
   display: flex;
   gap: 24px;

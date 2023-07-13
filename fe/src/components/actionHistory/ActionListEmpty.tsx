@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const ActionListEmpty = () => {
-  return <StyledListEmpty>사용자 활동 기록이 없습니다.</StyledListEmpty>;
+  return <ListEmptyLayout>사용자 활동 기록이 없습니다.</ListEmptyLayout>;
 };
 
-const StyledListEmpty = styled.li`
+const ListEmptyLayout = styled.li`
   font: ${({ theme: { fonts } }) => fonts.displayM14};
   color: ${({ theme: { colors } }) => colors.textWeak};
   padding: 16px;
