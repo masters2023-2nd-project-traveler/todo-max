@@ -17,6 +17,7 @@ type CardProps = {
 export const CardList: React.FC<CardProps> = ({ tasks }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
+  const [taskList, setTaskList] = useState<Task[]>(tasks);
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -34,11 +35,12 @@ export const CardList: React.FC<CardProps> = ({ tasks }) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     setIsVisible((prevVisible) => !prevVisible);
+    setTaskList(taskList.filter((task) => task.taskId !== taskId));
   };
 
   return (
     <CardListLayout>
-      {tasks.map((item: Task) => (
+      {taskList.map((item: Task) => (
         <Card
           mode="default"
           key={item.taskId}
