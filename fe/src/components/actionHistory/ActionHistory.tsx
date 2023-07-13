@@ -48,6 +48,9 @@ const ActionHistoryLayout = styled.div<StyleProps>`
   border-radius: ${({ theme: { border } }) => border.radius16};
   padding: 8px;
 
+  max-height: 680px;
+  overflow-y: auto;
+
   .titleArea {
     display: flex;
     justify-content: space-between;

@@ -12,6 +12,12 @@ export const ActionList = () => {
     setIsVisible((prevVisible) => !prevVisible);
   };
 
+  const onClick = () => {
+    console.log('삭제');
+    // 데이터를 다 지워야함
+    setIsVisible((prevVisible) => !prevVisible);
+  };
+
   // const isListEmpty = data.length === 0;
   const isListEmpty = false;
 
@@ -23,7 +29,23 @@ export const ActionList = () => {
         ) : (
           <>
             {actionHistory.message.map((item: any, index: number) => (
-              <React.Fragment key={item.title}>
+              <React.Fragment key={index}>
+                <ActionListItem
+                  title={item.title}
+                  from={item.from}
+                  to={item.to}
+                  action={item.action}
+                  createdTime={item.createdTime}
+                  userName={item.userName}
+                  imageUrl={item.imageUrl}
+                />
+                {index !== actionHistory.message.length - 1 && (
+                  <DividingLineLayout></DividingLineLayout>
+                )}
+              </React.Fragment>
+            ))}
+            {actionHistory.message.map((item: any, index: number) => (
+              <React.Fragment key={index}>
                 <ActionListItem
                   title={item.title}
                   from={item.from}
@@ -53,6 +75,7 @@ export const ActionList = () => {
         <Modal
           alertText="모든 사용자 활동 기록을 삭제할까요?"
           onClose={onClose}
+          onClick={onClick}
         />
       )}
     </>

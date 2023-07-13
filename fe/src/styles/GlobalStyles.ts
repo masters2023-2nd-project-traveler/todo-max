@@ -100,6 +100,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     background-color: #F7F7FC;
+
   }
 
   html {
@@ -107,6 +108,8 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
     height: 100vh;
 
+    overflow-x: hidden;
+    overflow-y: hidden;
   };
 `;
 
