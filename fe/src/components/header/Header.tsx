@@ -13,13 +13,16 @@ export const Header = () => {
 
   const onMove = () => {
     setIsAnimating(true);
-    setIsVisible((prevState) => !prevState);
+    if (isVisible) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
   };
 
-  const handleAnimationEnd = () => {
-    setIsAnimating(false);
+  const onAnimationEnd = () => {
     if (!isVisible) {
-      setIsVisible(false);
+      setIsAnimating(false);
     }
   };
 
@@ -45,11 +48,11 @@ export const Header = () => {
           onAnimationEnd={onAnimationEnd}
         />
       )} */}
-      {(isVisible || isAnimating) && (
+      {isAnimating && (
         <ActionHistory
           isVisible={isVisible}
           onClose={onMove}
-          onAnimationEnd={handleAnimationEnd}
+          onAnimationEnd={onAnimationEnd}
         />
       )}
     </HeaderLayout>

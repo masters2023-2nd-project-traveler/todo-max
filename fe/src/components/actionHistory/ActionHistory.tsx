@@ -36,7 +36,7 @@ export const ActionHistory: React.FC<ActionHistoryProps> = ({
 
 const StyledActionHistory = styled.div<StyleProps>`
   animation: ${(props) => (props.isVisible ? slideIn : slideOut)} 0.5s;
-
+  animation-fill-mode: forwards;
   position: absolute;
   top: 64px;
   right: 56px;
