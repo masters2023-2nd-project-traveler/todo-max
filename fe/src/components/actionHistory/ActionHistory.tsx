@@ -1,14 +1,24 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Button } from '../buttons/Button';
 import { ActionList } from './ActionList';
 
-interface ActionHistoryProps {
-  onClose: () => void;
+interface StyleProps {
+  isVisible: boolean;
 }
 
-export const ActionHistory: React.FC<ActionHistoryProps> = ({ onClose }) => {
+interface ActionHistoryProps {
+  onClose: () => void;
+  onAnimationEnd: () => void;
+  isVisible: boolean;
+}
+
+export const ActionHistory: React.FC<ActionHistoryProps> = ({
+  onClose,
+  onAnimationEnd,
+  isVisible,
+}) => {
   return (
-    <StyledActionHistory>
+    <StyledActionHistory isVisible={isVisible} onAnimationEnd={onAnimationEnd}>
       <div className="titleArea">
         <p className="titleText">사용자 활동 기록</p>
         <Button
@@ -24,7 +34,9 @@ export const ActionHistory: React.FC<ActionHistoryProps> = ({ onClose }) => {
   );
 };
 
-const StyledActionHistory = styled.div`
+const StyledActionHistory = styled.div<StyleProps>`
+  animation: ${(props) => (props.isVisible ? slideIn : slideOut)} 0.5s;
+
   position: absolute;
   top: 64px;
   right: 56px;
@@ -50,5 +62,29 @@ const StyledActionHistory = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+`;
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(200px);
+    opacity: 0;
   }
 `;
