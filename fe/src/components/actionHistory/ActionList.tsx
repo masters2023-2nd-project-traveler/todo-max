@@ -26,7 +26,7 @@ export const ActionList = () => {
                 imageUrl={item.imageUrl}
               />
               {index !== actionHistory.message.length - 1 && (
-                <StyledDividingLine></StyledDividingLine>
+                <DividingLineLayout></DividingLineLayout>
               )}
             </React.Fragment>
           ))}
@@ -54,7 +54,7 @@ const ButtonLayout = styled.div`
   padding: 8px 16px;
 `;
 
-const StyledDividingLine = styled.div`
+const DividingLineLayout = styled.div`
   width: 100%;
   height: 1px;
   background-color: ${({ theme: { colors } }) => colors.borderDefault};
