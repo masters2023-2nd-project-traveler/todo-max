@@ -20,15 +20,10 @@ export const ActionList = () => {
   const [historyData, setHistoryData] = useState<History[] | null>(null);
 
   const fetchInitialData = async () => {
-    try {
-      const response = await fetch('http://52.79.68.54:8080/history');
-      const data = await response.json();
-      console.log(data);
-
-      setHistoryData(data.message);
-    } catch (error) {
-      console.error(error);
-    }
+    const response = await fetch('http://52.79.68.54:8080/history');
+    const data = await response.json();
+    console.log(data);
+    setHistoryData(data.message);
   };
 
   useEffect(() => {
@@ -47,18 +42,14 @@ export const ActionList = () => {
 
   const onClick = async () => {
     console.log('삭제~');
-    try {
-      const response = await fetch('http://52.79.68.54:8080/history', {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      setHistoryData([]);
-      setIsVisible((prevVisible) => !prevVisible);
-    } catch (error) {
-      console.error(error);
+    const response = await fetch('http://52.79.68.54:8080/history', {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    setHistoryData([]);
+    setIsVisible((prevVisible) => !prevVisible);
   };
 
   return (
