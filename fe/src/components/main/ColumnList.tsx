@@ -37,6 +37,7 @@ export const ColumnList = () => {
             key={item.processId}
             title={item.processName}
             tasks={item.tasks}
+            processId={item.processId}
           />
         ))}
       </ColumnLayout>
