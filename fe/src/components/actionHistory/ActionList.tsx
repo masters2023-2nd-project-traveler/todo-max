@@ -5,21 +5,61 @@ import { ActionListItem } from './ActionListItem';
 import { Button } from '../buttons/Button';
 import { Modal } from '../modal/Modal';
 
+type History = {
+  title: string;
+  from: string;
+  to: string;
+  action: string;
+  createdTime: string;
+  userName: string;
+  imageUrl: string;
+};
+
 export const ActionList = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [historyData, setHistoryData] = useState<History[] | null>(null);
+
+  const fetchInitialData = async () => {
+    try {
+      const response = await fetch('http://52.79.68.54:8080/history');
+      const data = await response.json();
+      console.log(data);
+
+      setHistoryData(data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  if (historyData === null) {
+    return <div>Loading...</div>;
+  }
+
+  const isListEmpty = historyData.length === 0;
 
   const onClose = () => {
     setIsVisible((prevVisible) => !prevVisible);
   };
 
-  const onClick = () => {
-    console.log('삭제');
-    // 데이터를 다 지워야함
-    setIsVisible((prevVisible) => !prevVisible);
+  const onClick = async () => {
+    console.log('삭제~');
+    try {
+      const response = await fetch('http://52.79.68.54:8080/history', {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setHistoryData([]);
+      setIsVisible((prevVisible) => !prevVisible);
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  // const isListEmpty = data.length === 0;
-  const isListEmpty = false;
 
   return (
     <>
@@ -28,7 +68,7 @@ export const ActionList = () => {
           <ActionListEmpty />
         ) : (
           <>
-            {actionHistory.message.map((item: any, index: number) => (
+            {historyData.map((item: any, index: number) => (
               <React.Fragment key={index}>
                 <ActionListItem
                   title={item.title}
@@ -39,12 +79,12 @@ export const ActionList = () => {
                   userName={item.userName}
                   imageUrl={item.imageUrl}
                 />
-                {index !== actionHistory.message.length - 1 && (
+                {index !== historyData.length - 1 && (
                   <DividingLineLayout></DividingLineLayout>
                 )}
               </React.Fragment>
             ))}
-            {actionHistory.message.map((item: any, index: number) => (
+            {historyData.map((item: any, index: number) => (
               <React.Fragment key={index}>
                 <ActionListItem
                   title={item.title}
@@ -55,7 +95,7 @@ export const ActionList = () => {
                   userName={item.userName}
                   imageUrl={item.imageUrl}
                 />
-                {index !== actionHistory.message.length - 1 && (
+                {index !== historyData.length - 1 && (
                   <DividingLineLayout></DividingLineLayout>
                 )}
               </React.Fragment>
@@ -101,49 +141,3 @@ const DividingLineLayout = styled.div`
   height: 1px;
   background-color: ${({ theme: { colors } }) => colors.borderDefault};
 `;
-
-const actionHistory = {
-  statusCode: 200,
-  message: [
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고있는 일',
-      to: '해야할 일',
-      action: '이동',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: 'GitHub 공부하기',
-      from: '',
-      to: '',
-      action: '변경',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고 있는 일',
-      to: '',
-      action: '등록',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-    {
-      title: '블로그에 포스팅할 것',
-      from: '하고 있는 일',
-      to: '',
-      action: '삭제',
-      createdTime: '2023-07-10 18:00:00',
-      userName: 'anonymous',
-      imageUrl:
-        'https://raw.githubusercontent.com/CDBchan/Typora-img/main/img/%E1%84%80%E1%85%A2%E1%84%80%E1%85%AE%E1%84%85%E1%85%B5.jpeg',
-    },
-  ],
-};

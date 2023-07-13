@@ -35,7 +35,15 @@ const handlers = [
     return res(ctx.status(200), ctx.json(todolist));
   }),
 
-  rest.get('http://52.79.68.54:8080/todolisturl', (req, res, ctx) => {
+  rest.get('http://52.79.68.54:8080/history', (req, res, ctx) => {
+    console.log(actionHistory);
+
+    return res(ctx.status(200), ctx.json(actionHistory));
+  }),
+
+  rest.delete('http://52.79.68.54:8080/history', (req, res, ctx) => {
+    // 모든 데이터를 삭제한 후의 상태를 반환
+    actionHistory.message = [];
     return res(ctx.status(200), ctx.json(actionHistory));
   }),
 
