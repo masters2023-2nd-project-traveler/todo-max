@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '../buttons/Button';
 
@@ -23,15 +24,39 @@ export const CardComponent: React.FC<CardProps> = ({
   contents,
   platform,
 }) => {
+  const [bodyinputValue, setBodyInputValue] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBodyInputValue(e.target.value);
+  };
+
+  const isInputEmpty = bodyinputValue.length === 0;
+
   return (
     <Card mode={mode} className="card">
       {mode === 'addEdit' ? (
         <>
-          <h2 className="title">{title}</h2>
-          <p className="body">{contents}</p>
+          <input
+            placeholder={title}
+            className="title"
+            type="text"
+            title="제목"
+          />
+          <input
+            placeholder={contents}
+            className="body"
+            type="text"
+            onChange={handleInputChange}
+            title="내용"
+          />
           <div className="btns">
             <Button variant="contained" pattern="text-only" text="취소" />
-            <Button variant="contained" pattern="text-only" text="등록" />
+            <Button
+              variant="contained"
+              pattern="text-only"
+              text="등록"
+              disabled={isInputEmpty}
+            />
           </div>
         </>
       ) : (
@@ -62,10 +87,13 @@ export const Card = styled.div<CardStyledProps>`
   box-shadow: ${({ theme: { shadows } }) => shadows.nomal};
 
   .title {
+    border: none;
     font: ${({ theme: { fonts } }) => fonts.displayB14};
     color: ${({ theme: { colors } }) => colors.textStrong};
   }
+
   .body {
+    border: none;
     margin-top: 8px;
     margin-bottom: 16px;
     font: ${({ theme: { fonts } }) => fonts.displayM14};

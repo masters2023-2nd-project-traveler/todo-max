@@ -11,6 +11,7 @@ interface ButtonProps {
   text?: string;
   icon?: 'close' | 'edit' | 'history' | 'plus';
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   text,
   icon,
   disabled,
+  onClick,
 }) => {
   const renderIcon = () => {
     switch (icon) {
@@ -42,6 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
       text={text}
       icon={icon}
       disabled={disabled}
+      onClick={onClick}
     >
       {(pattern === 'icon-text' || pattern === 'icon-only') && renderIcon()}
       {pattern !== 'icon-only' && text}

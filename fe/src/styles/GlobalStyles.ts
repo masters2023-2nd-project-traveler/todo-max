@@ -44,6 +44,10 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
+  dialog{
+    border: none;
+  }
+
   button,
   input,
   select {
