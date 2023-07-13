@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import IconClose from '../../assets/icon_closed.svg';
-import IconEdit from '../../assets/icon_edit.svg';
-import IconHistory from '../../assets/icon_history.svg';
-import IconPlus from '../../assets/icon_plus.svg';
+import { Close } from './icon/Close';
+import { Plus } from './icon/Plus';
+import { Edit } from './icon/Edit';
+import { History } from './icon/History';
 
 interface ButtonProps {
   variant: 'contained' | 'ghost';
@@ -25,13 +25,13 @@ export const Button: React.FC<ButtonProps> = ({
   const renderIcon = () => {
     switch (icon) {
       case 'close':
-        return <img src={IconClose} alt="Close" />;
+        return <Close />;
       case 'edit':
-        return <img src={IconEdit} alt="Edit" />;
+        return <Edit />;
       case 'history':
-        return <img src={IconHistory} alt="History" />;
+        return <History />;
       case 'plus':
-        return <img src={IconPlus} alt="Plus" />;
+        return <Plus />;
       default:
         return null;
     }
@@ -98,4 +98,16 @@ const ButtonLayout = styled.button<ButtonProps>`
       opacity: 0.8;
     }
   `}
+
+  ${({ pattern, icon, theme: { colors } }) =>
+    pattern === 'icon-only' &&
+    icon === 'close' &&
+    css`
+      &:hover {
+        svg path {
+          transition: fill 0.5s ease-in-out;
+          fill: ${colors.surfaceDanger};
+        }
+      }
+    `}
 `;
