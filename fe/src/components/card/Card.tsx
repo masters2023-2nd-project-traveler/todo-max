@@ -13,6 +13,7 @@ interface Task {
 interface CardProps extends Task {
   mode: Mode;
   onSubmit?: (title: string, body: string) => void;
+  onCancel?: () => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -21,6 +22,7 @@ export const Card: React.FC<CardProps> = ({
   contents,
   platform,
   onSubmit,
+  onCancel,
 }) => {
   const [titleInputValue, setTitleInputValue] = useState('');
   const [bodyinputValue, setBodyInputValue] = useState('');
@@ -61,7 +63,12 @@ export const Card: React.FC<CardProps> = ({
             title="내용"
           />
           <div className="btns">
-            <Button variant="contained" pattern="text-only" text="취소" />
+            <Button
+              variant="contained"
+              pattern="text-only"
+              text="취소"
+              onClick={onCancel}
+            />
             <Button
               variant="contained"
               pattern="text-only"

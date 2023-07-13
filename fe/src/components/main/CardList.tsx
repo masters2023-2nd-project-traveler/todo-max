@@ -13,18 +13,20 @@ type CardProps = {
   processId: number;
   tasks: Array<Task>;
   isAddMode: boolean;
+  onCancel: () => void;
 };
 
 export const CardList: React.FC<CardProps> = ({
   tasks,
   isAddMode,
   processId,
+  onCancel,
 }) => {
   console.log(tasks);
 
   return (
     <CardListLayout>
-      {isAddMode && <AddModeCard processId={processId} />}
+      {isAddMode && <AddModeCard processId={processId} onCancel={onCancel} />}
       {tasks.map((item: Task) => (
         <Card
           mode="default"

@@ -3,9 +3,13 @@ import { Card } from '../card/Card';
 
 type AddModeCardProps = {
   processId: number;
+  onCancel: () => void;
 };
 
-export const AddModeCard: React.FC<AddModeCardProps> = ({ processId }) => {
+export const AddModeCard: React.FC<AddModeCardProps> = ({
+  processId,
+  onCancel,
+}) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -27,6 +31,7 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({ processId }) => {
       title="제목을 입력하세요"
       contents="내용을 입력하세요"
       onSubmit={handleSubmit}
+      onCancel={onCancel}
     />
   );
 };

@@ -37,7 +37,12 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         onAddClick={handleAddModeClick}
       />
 
-      <CardList processId={processId} tasks={tasks} isAddMode={isAddMode} />
+      <CardList
+        processId={processId}
+        tasks={tasks}
+        isAddMode={isAddMode}
+        onCancel={handleAddModeClick}
+      />
     </div>
   );
 };
