@@ -18,15 +18,18 @@ export const CardList: React.FC<CardProps> = ({ tasks }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
-  const modalHandler = (): void => {
+  const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
-    // setCurrentTaskId(taskId);
-    // console.log('modalHandler', taskId);
+    setCurrentTaskId(taskId);
   };
 
-  const deleteHandler = async (taskId) => {
+  const deleteHandler = async (taskId: number) => {
     console.log('삭제~');
-    const response = await fetch(`http://52.79.68.54:8080/task/${taskId}`);
+    const response = await fetch(`http://52.79.68.54:8080/task/${taskId}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    console.log(data);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -42,14 +45,22 @@ export const CardList: React.FC<CardProps> = ({ tasks }) => {
           title={item.title}
           contents={item.contents}
           platform={item.platform}
-          modalHandler={modalHandler}
+          modalHandler={() => modalHandler(item.taskId)}
         />
       ))}
       {isVisible && (
         <Modal
           alertText="선택한 카드를 삭제할깝쇼?"
-          onClose={modalHandler}
-          /*  onClick={deleteHandler} */
+          onClose={() => {
+            if (currentTaskId !== null) {
+              modalHandler(currentTaskId);
+            }
+          }}
+          onClick={() => {
+            if (currentTaskId !== null) {
+              deleteHandler(currentTaskId);
+            }
+          }}
         />
       )}
     </CardListLayout>
