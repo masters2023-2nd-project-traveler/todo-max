@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from '../buttons/Button';
 
@@ -25,22 +25,30 @@ export const Card: React.FC<CardProps> = ({
   onCancel,
 }) => {
   const [titleInputValue, setTitleInputValue] = useState('');
-  const [bodyinputValue, setBodyInputValue] = useState('');
+  const [bodyInputValue, setBodyInputValue] = useState('');
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  }, [bodyInputValue]);
 
   const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitleInputValue(e.target.value);
   };
 
-  const handleBodyInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBodyInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBodyInputValue(e.target.value);
   };
 
   const isInputEmpty =
-    titleInputValue.length === 0 || bodyinputValue.length === 0;
+    titleInputValue.length === 0 || bodyInputValue.length === 0;
 
   const handleButtonClick = () => {
     if (onSubmit && !isInputEmpty) {
-      onSubmit(titleInputValue, bodyinputValue);
+      onSubmit(titleInputValue, bodyInputValue);
     }
   };
 
@@ -55,12 +63,14 @@ export const Card: React.FC<CardProps> = ({
             onChange={handleTitleInputChange}
             title="제목"
           />
-          <input
+          <textarea
+            ref={textAreaRef}
             placeholder={contents}
             className="body"
-            type="text"
             onChange={handleBodyInputChange}
+            maxLength={500}
             title="내용"
+            rows={1}
           />
           <div className="btns">
             <Button
@@ -119,6 +129,8 @@ const CardLayout = styled.div<CardStyledProps>`
     margin-bottom: 16px;
     font: ${({ theme: { fonts } }) => fonts.displayM14};
     color: ${({ theme: { colors } }) => colors.textDefault};
+    resize: none;
+    white-space: pre-wrap;
   }
 
   .caption {
@@ -146,6 +158,10 @@ const CardLayout = styled.div<CardStyledProps>`
       .btns {
         display: flex;
         gap: 8px;
+      }
+      textarea,
+      input {
+        width: 240px;
       }
     `}
 
