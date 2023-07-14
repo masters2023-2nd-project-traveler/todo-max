@@ -79,16 +79,24 @@ const handlers = [
   //   return res(ctx.status(200), ctx.json(recipe));
   // }),
 
-  // rest.post('/cart', (req, res, ctx) => {
-  //   const item = req.body;
-  //   console.log(item);
-  //   return res(
-  //     ctx.json({
-  //       message: `정상작동중`,
-  //     }),
-  //     ctx.status(200)
-  //   );
-  // }),
+  rest.post('/task', (req, res, ctx) => {
+    const newTask: any = req.body;
+    const taskId = Math.floor(Math.random() * 1000) + 1;
+
+    return res(
+      ctx.json({
+        statusCode: 200,
+        message: {
+          taskId: taskId,
+          processId: newTask.processId,
+          title: newTask.title,
+          contents: newTask.contents,
+          platform: newTask.platform,
+        },
+      }),
+      ctx.status(200),
+    );
+  }),
 ];
 
 export default handlers;

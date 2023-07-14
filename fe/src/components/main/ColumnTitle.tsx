@@ -4,11 +4,13 @@ import { Button } from '../buttons/Button';
 type ColumnTitleProps = {
   title: string;
   numberOfTasks: number;
+  onAddClick?: () => void;
 };
 
 export const ColumnTitle: React.FC<ColumnTitleProps> = ({
   title,
   numberOfTasks,
+  onAddClick,
 }) => {
   return (
     <TitleLayout>
@@ -17,7 +19,12 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
         <p>{numberOfTasks}</p>
       </div>
       <div className="iconBtns">
-        <Button variant="ghost" pattern="icon-only" icon="plus" />
+        <Button
+          variant="ghost"
+          pattern="icon-only"
+          icon="plus"
+          onClick={onAddClick}
+        />
         <Button variant="ghost" pattern="icon-only" icon="close" />
       </div>
     </TitleLayout>

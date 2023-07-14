@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card/Card';
 import { Modal } from '../modal/Modal';
+import { AddModeCard } from './AddModeCard';
 
-type Task = {
+type TaskType = {
   taskId: number;
   title: string;
   contents: string;
@@ -11,11 +12,25 @@ type Task = {
 };
 
 type CardProps = {
-  tasks: Array<Task>;
+  processId: number;
+  tasks: TaskType[];
+  isAddMode: boolean;
+  onCancel: () => void;
+  onNewTask: (newTask: AddTaskType) => void;
 };
 
-export const CardList: React.FC<CardProps> = ({ tasks }) => {
-  const [isVisible, setIsVisible] = useState(false);
+type AddTaskType = TaskType & { processId: number };
+
+export const CardList: React.FC<CardProps> = ({
+  tasks,
+  isAddMode,
+  processId,
+  onCancel,
+  onNewTask,
+}) => {
+  console.log(tasks);
+        
+const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
   const [taskList, setTaskList] = useState<Task[]>(tasks);
 
@@ -37,10 +52,17 @@ export const CardList: React.FC<CardProps> = ({ tasks }) => {
     setIsVisible((prevVisible) => !prevVisible);
     setTaskList(taskList.filter((task) => task.taskId !== taskId));
   };
-
+        
   return (
     <CardListLayout>
-      {taskList.map((item: Task) => (
+      {isAddMode && (
+        <AddModeCard
+          processId={processId}
+          onCancel={onCancel}
+          onNewTask={onNewTask}
+        />
+      )}
+      {taskList.map((item: TaskType) => (
         <Card
           mode="default"
           key={item.taskId}
