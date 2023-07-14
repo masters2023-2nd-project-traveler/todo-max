@@ -28,9 +28,9 @@ export const CardList: React.FC<CardProps> = ({
   onCancel,
   onNewTask,
 }) => {
-  console.log(tasks);
-        
-const [isVisible, setIsVisible] = useState(false);
+  console.log('카드리스트 task', tasks);
+
+  const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
   const [taskList, setTaskList] = useState<Task[]>(tasks);
 
@@ -46,13 +46,15 @@ const [isVisible, setIsVisible] = useState(false);
     });
     const data = await response.json();
     console.log(data);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+
     setIsVisible((prevVisible) => !prevVisible);
     setTaskList(taskList.filter((task) => task.taskId !== taskId));
   };
-        
+
+  useEffect(() => {
+    setTaskList(tasks);
+  }, [tasks]);
+
   return (
     <CardListLayout>
       {isAddMode && (
