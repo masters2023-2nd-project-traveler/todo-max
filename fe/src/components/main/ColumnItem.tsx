@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import { Card } from '../card/Card';
 import { CardList } from './CardList';
 import { ColumnTitle } from './ColumnTitle';
+
+type TaskType = {
+  taskId: number;
+  title: string;
+  contents: string;
+  platform: string;
+};
 
 type ColumnItemProps = {
   processId: number;
   title: string;
-  tasks: Array<{
-    taskId: number;
-    title: string;
-    contents: string;
-    platform: string;
-  }>;
+  tasks: TaskType[];
+  onNewTask: (newTask: AddTaskType) => void;
 };
+
+type AddTaskType = TaskType & { processId: number };
 
 export const ColumnItem: React.FC<ColumnItemProps> = ({
   processId,
   title,
   tasks,
+  onNewTask,
 }) => {
   console.log('tasks', tasks);
   console.log('tasks', tasks.length);
@@ -42,6 +47,7 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         tasks={tasks}
         isAddMode={isAddMode}
         onCancel={handleAddModeClick}
+        onNewTask={onNewTask}
       />
     </div>
   );

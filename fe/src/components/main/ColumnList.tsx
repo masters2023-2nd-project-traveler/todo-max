@@ -2,19 +2,23 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { ColumnItem } from './ColumnItem';
 
-type TodoItem = {
-  processId: number;
-  processName: string;
-  tasks: Array<{
-    taskId: number;
-    title: string;
-    contents: string;
-    platform: string;
-  }>;
+type TaskType = {
+  taskId: number;
+  title: string;
+  contents: string;
+  platform: string;
 };
 
+type TodoItemType = {
+  processId: number;
+  processName: string;
+  tasks: TaskType[];
+};
+
+type AddTaskType = TaskType & { processId: number };
+
 export const ColumnList = () => {
-  const [todoListData, setTodoListData] = useState<TodoItem[] | null>(null);
+  const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
 
   useEffect(() => {
     fetch('http://52.79.68.54:8080/todolist')
@@ -25,6 +29,18 @@ export const ColumnList = () => {
       });
   }, []);
 
+  const handleNewTask = (newTask: AddTaskType) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.map((item) =>
+        item.processId === newTask.processId
+          ? { ...item, tasks: [newTask, ...item.tasks] }
+          : item,
+      );
+    });
+  };
+
   if (todoListData === null) {
     return <div>Loading...</div>;
   }
@@ -32,12 +48,13 @@ export const ColumnList = () => {
   return (
     <MainLayout>
       <ColumnLayout>
-        {todoListData.map((item: TodoItem) => (
+        {todoListData.map((item: TodoItemType) => (
           <ColumnItem
             key={item.processId}
             title={item.processName}
             tasks={item.tasks}
             processId={item.processId}
+            onNewTask={handleNewTask}
           />
         ))}
       </ColumnLayout>
