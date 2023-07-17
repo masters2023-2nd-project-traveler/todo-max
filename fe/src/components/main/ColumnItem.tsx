@@ -55,5 +55,3 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
     </div>
   );
 };
-
-export default ColumnItem;
