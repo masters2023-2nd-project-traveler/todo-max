@@ -4,6 +4,7 @@ import { ActionListEmpty } from './ActionListEmpty';
 import { ActionListItem } from './ActionListItem';
 import { Button } from '../buttons/Button';
 import { Modal } from '../modal/Modal';
+import { useData } from '../../contexts/DataContext';
 
 type History = {
   title: string;
@@ -18,6 +19,7 @@ type History = {
 export const ActionList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [historyData, setHistoryData] = useState<History[] | null>(null);
+  const { todoListData } = useData();
 
   const fetchInitialData = async () => {
     const response = await fetch('/history');
@@ -28,7 +30,7 @@ export const ActionList = () => {
 
   useEffect(() => {
     fetchInitialData();
-  }, []);
+  }, [todoListData]);
 
   if (historyData === null) {
     return <div>Loading...</div>;
