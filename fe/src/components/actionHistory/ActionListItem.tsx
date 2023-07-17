@@ -42,7 +42,7 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
   action,
   createdTime,
   userName,
-  imageUrl,
+  // imageUrl,
 }) => {
   return (
     <ListItemLayout>

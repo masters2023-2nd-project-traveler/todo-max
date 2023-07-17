@@ -32,7 +32,7 @@ export const CardList: React.FC<CardProps> = ({
 
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
-  const [taskList, setTaskList] = useState<Task[]>(tasks);
+  const [taskList, setTaskList] = useState<TaskType[]>(tasks);
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -41,7 +41,7 @@ export const CardList: React.FC<CardProps> = ({
 
   const deleteHandler = async (taskId: number) => {
     console.log('삭제~');
-    const response = await fetch(`http://52.79.68.54:8080/task/${taskId}`, {
+    const response = await fetch(`/task/${taskId}`, {
       method: 'DELETE',
     });
     const data = await response.json();

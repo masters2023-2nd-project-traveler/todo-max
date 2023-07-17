@@ -21,7 +21,7 @@ export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
 
   useEffect(() => {
-    fetch('http://52.79.68.54:8080/todolist')
+    fetch('/todolist')
       .then((response) => response.json())
       .then((data) => {
         setTodoListData(data.message);
