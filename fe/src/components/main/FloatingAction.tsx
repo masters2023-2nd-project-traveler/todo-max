@@ -12,44 +12,35 @@ type FloatingActionProps = {
   onAddClick?: () => void;
 };
 
-export const FloatingActionBtn: React.FC<FloatingActionProps> = (
-  {
-    // title,
-    // numberOfTasks,
-    // onAddClick,
-  },
-) => {
+export const FloatingActionBtn: React.FC<FloatingActionProps> = () => {
   const [isSelectMode, setIsSelectMode] = useState(false);
-  const [isRendered, setIsRendered] = useState(false);
+  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   const changeModeHandler = () => {
-    setIsSelectMode((prev) => !prev);
-    if (!isSelectMode) {
-      setIsRendered(true);
+    if (isSelectMode) {
+      setIsAnimatingOut(true);
     } else {
-      setTimeout(() => setIsRendered(false), 500);
+      setIsSelectMode(true);
     }
   };
-  // const changeModeHandler = () => {
-  //   setIsSelectMode((prev) => !prev);
-  // };
+
+  useEffect(() => {
+    let timeout;
+    if (isAnimatingOut) {
+      timeout = setTimeout(() => {
+        setIsAnimatingOut(false);
+        setIsSelectMode(false);
+      }, 500);
+    }
+    return () => clearTimeout(timeout);
+  }, [isAnimatingOut]);
 
   return (
-    <FloatingActionBtnLayout mode={isSelectMode}>
-      {isRendered && (
-        <div className="selectMode">
-          <Button
-            variant="contained"
-            pattern="text-only"
-            text="컬럼 추가"
-            // onClick={addHandler}
-          />
-          <Button
-            variant="contained"
-            pattern="text-only"
-            text="컬럼 삭제"
-            // onClick={deleteHandler}
-          />
+    <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
+      {(isSelectMode || isAnimatingOut) && (
+        <div className={`selectMode ${isAnimatingOut ? 'animating-out' : ''}`}>
+          <Button variant="contained" pattern="text-only" text="컬럼 추가" />
+          <Button variant="contained" pattern="text-only" text="컬럼 삭제" />
         </div>
       )}
       <div className="fabBtn" onClick={changeModeHandler}>
@@ -72,7 +63,7 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
   ${(props) =>
     props.mode
       ? css`
-          // flex-direction: column;
+          flex-direction: column;
           justify-content: center;
           background-color: ${({ theme: { colors } }) => colors.surfaceDefault};
           border-radius: 16px 16px 28px 16px;
@@ -112,6 +103,8 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
     animation-fill-mode: forwards;
     height: 164px;
     width: 164px;
+    padding: 16px;
+    gap: 8px;
   }
 
   .selectMode button {
@@ -123,9 +116,10 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
     props.mode
       ? css`
           .selectMode {
-            padding: 16px;
-            gap: 10px;
             animation: ${expand} 0.5s ease-in-out;
+          }
+          .selectMode.animating-out {
+            animation: ${shrink} 0.5s ease-in-out;
           }
           .selectMode button {
             animation: ${fadeIn} 0.5s ease-in-out;
