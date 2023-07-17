@@ -4,22 +4,22 @@ import { Button } from '../buttons/Button';
 
 type Mode = 'default' | 'addEdit' | 'drag' | 'place';
 
-interface Task {
+type Task = {
   title: string;
   contents: string;
   platform?: string;
   modalHandler?: () => void;
-}
+};
 
-interface CardStyledProps {
+type CardStyledProps = {
   mode: Mode;
-}
+};
 
-interface CardProps extends Task {
+type CardProps = Task & {
   mode: Mode;
   onSubmit?: (title: string, body: string) => void;
   onCancel?: () => void;
-}
+};
 
 export const Card: React.FC<CardProps> = ({
   mode,
@@ -115,10 +115,6 @@ export const Card: React.FC<CardProps> = ({
     </CardLayout>
   );
 };
-
-interface CardStyledProps {
-  mode: Mode;
-}
 
 const CardLayout = styled.div<CardStyledProps>`
   width: 300px;

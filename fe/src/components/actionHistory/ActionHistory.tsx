@@ -2,15 +2,15 @@ import styled, { keyframes } from 'styled-components';
 import { Button } from '../buttons/Button';
 import { ActionList } from './ActionList';
 
-interface StyleProps {
+type StyleProps = {
   isVisible: boolean;
-}
+};
 
-interface ActionHistoryProps {
+type ActionHistoryProps = {
   onClose: () => void;
   onAnimationEnd: () => void;
   isVisible: boolean;
-}
+};
 
 export const ActionHistory: React.FC<ActionHistoryProps> = ({
   onClose,

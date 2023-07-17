@@ -17,6 +17,7 @@ type CardProps = {
   isAddMode: boolean;
   onCancel: () => void;
   onNewTask: (newTask: AddTaskType) => void;
+  onTaskDelete: (taskId: number) => void;
 };
 
 type AddTaskType = TaskType & { processId: number };
@@ -27,6 +28,7 @@ export const CardList: React.FC<CardProps> = ({
   processId,
   onCancel,
   onNewTask,
+  onTaskDelete,
 }) => {
   console.log('카드리스트 task', tasks);
 
@@ -49,6 +51,7 @@ export const CardList: React.FC<CardProps> = ({
 
     setIsVisible((prevVisible) => !prevVisible);
     setTaskList(taskList.filter((task) => task.taskId !== taskId));
+    onTaskDelete(taskId);
   };
 
   useEffect(() => {

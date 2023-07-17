@@ -5,14 +5,14 @@ import { Plus } from './icon/Plus';
 import { Edit } from './icon/Edit';
 import { History } from './icon/History';
 
-interface ButtonProps {
+type ButtonProps = {
   variant: 'contained' | 'ghost';
   pattern: 'icon-only' | 'text-only' | 'icon-text';
   text?: string;
   icon?: 'close' | 'edit' | 'history' | 'plus';
   disabled?: boolean;
   onClick?: () => void;
-}
+};
 
 export const Button: React.FC<ButtonProps> = ({
   variant,

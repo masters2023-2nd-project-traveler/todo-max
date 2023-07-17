@@ -12,7 +12,7 @@ type History = {
   action: string;
   createdTime: string;
   userName: string;
-  imageUrl: string;
+  imageUrl?: string;
 };
 
 export const ActionList = () => {
@@ -59,33 +59,9 @@ export const ActionList = () => {
           <ActionListEmpty />
         ) : (
           <>
-            {historyData.map((item: any, index: number) => (
+            {historyData.map((item: History, index: number) => (
               <React.Fragment key={index}>
-                <ActionListItem
-                  title={item.title}
-                  from={item.from}
-                  to={item.to}
-                  action={item.action}
-                  createdTime={item.createdTime}
-                  userName={item.userName}
-                  imageUrl={item.imageUrl}
-                />
-                {index !== historyData.length - 1 && (
-                  <DividingLineLayout></DividingLineLayout>
-                )}
-              </React.Fragment>
-            ))}
-            {historyData.map((item: any, index: number) => (
-              <React.Fragment key={index}>
-                <ActionListItem
-                  title={item.title}
-                  from={item.from}
-                  to={item.to}
-                  action={item.action}
-                  createdTime={item.createdTime}
-                  userName={item.userName}
-                  imageUrl={item.imageUrl}
-                />
+                <ActionListItem {...item} />
                 {index !== historyData.length - 1 && (
                   <DividingLineLayout></DividingLineLayout>
                 )}

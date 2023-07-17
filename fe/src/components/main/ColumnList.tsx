@@ -11,7 +11,7 @@ type TaskType = {
 
 type TodoItemType = {
   processId: number;
-  processName: string;
+  name: string;
   tasks: TaskType[];
 };
 
@@ -21,12 +21,12 @@ export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
 
   useEffect(() => {
-    fetch('/todolist')
-      .then((response) => response.json())
-      .then((data) => {
-        setTodoListData(data.message);
-        console.log(todoListData);
-      });
+    const fetchTodoList = async () => {
+      const response = await fetch('/todolist');
+      const todoData = await response.json();
+      setTodoListData(todoData.message);
+    };
+    fetchTodoList();
   }, []);
 
   const handleNewTask = (newTask: AddTaskType) => {
@@ -36,6 +36,21 @@ export const ColumnList = () => {
       return prevData.map((item) =>
         item.processId === newTask.processId
           ? { ...item, tasks: [newTask, ...item.tasks] }
+          : item,
+      );
+    });
+  };
+
+  const handleTaskDelete = (taskId: number) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.map((item) =>
+        item.tasks.some((task) => task.taskId === taskId)
+          ? {
+              ...item,
+              tasks: item.tasks.filter((task) => task.taskId !== taskId),
+            }
           : item,
       );
     });
@@ -51,10 +66,11 @@ export const ColumnList = () => {
         {todoListData.map((item: TodoItemType) => (
           <ColumnItem
             key={item.processId}
-            title={item.processName}
+            title={item.name}
             tasks={item.tasks}
             processId={item.processId}
             onNewTask={handleNewTask}
+            onTaskDelete={handleTaskDelete}
           />
         ))}
       </ColumnLayout>
@@ -64,7 +80,7 @@ export const ColumnList = () => {
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
-  background-color: ${(props) => props.theme.colors.surfaceAlt};
+  background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
 `;
 
 const ColumnLayout = styled.div`

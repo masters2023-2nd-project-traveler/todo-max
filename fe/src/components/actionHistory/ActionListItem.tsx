@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import UserImage from '../../assets/user_Image.svg';
 
-interface ActionListItemProps {
+type ActionListItemProps = {
   title: string;
   from: string;
   to: string;
   action: string;
   createdTime: string;
   userName: string;
-  imageUrl: string;
-}
+  imageUrl?: string;
+};
 
 function formatTimeDifference(dateTimeStr: string): string {
   const inputDate = new Date(dateTimeStr);
