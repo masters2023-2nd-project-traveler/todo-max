@@ -29,6 +29,17 @@ export const ColumnList = () => {
     fetchTodoList();
   }, []);
 
+  const handleTitleChange = (e, processId) => {
+    const newName = e.target.value;
+    setTodoListData(
+      (prevData) =>
+        prevData &&
+        prevData.map((item) =>
+          item.processId === processId ? { ...item, name: newName } : item,
+        ),
+    );
+  };
+
   const handleNewTask = (newTask: AddTaskType) => {
     setTodoListData((prevData) => {
       if (!prevData) return null;
@@ -71,6 +82,7 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
+            onTitleChange={handleTitleChange}
           />
         ))}
       </ColumnLayout>
