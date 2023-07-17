@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CardList } from './CardList';
 import { ColumnTitle } from './ColumnTitle';
+import { FloatingActionBtn } from './FloatingAction';
 
 type TaskType = {
   taskId: number;

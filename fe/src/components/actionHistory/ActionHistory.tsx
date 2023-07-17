@@ -22,7 +22,7 @@ export const ActionHistory: React.FC<ActionHistoryProps> = ({
       <div className="titleArea">
         <p className="titleText">사용자 활동 기록</p>
         <Button
-          variant="contained"
+          variant="ghost"
           pattern="icon-text"
           text="닫기"
           icon="close"

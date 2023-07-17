@@ -63,7 +63,10 @@ const ButtonLayout = styled.button<ButtonProps>`
   color: ${({ text, theme: { colors } }) =>
     text === '기록 전체 삭제'
       ? colors.textDanger
-      : text === '취소' || text === '닫기'
+      : text === '취소' ||
+        text === '닫기' ||
+        text === '컬럼 삭제' ||
+        text === '컬럼 추가'
       ? colors.textDefault
       : colors.textWhiteDefault};
 
@@ -75,7 +78,7 @@ const ButtonLayout = styled.button<ButtonProps>`
         ? colors.surfaceBrand
         : text === '삭제'
         ? colors.surfaceDanger
-        : colors.surfaceDefault
+        : colors.surfaceAlt
       : 'transparent'};
 
   width: ${({ variant, pattern }) =>
