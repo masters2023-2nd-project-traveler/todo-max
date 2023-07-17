@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { ColumnItem } from './ColumnItem';
+import { useData } from '../../contexts/DataContext';
 
 type TaskType = {
   taskId: number;
@@ -18,7 +19,8 @@ type TodoItemType = {
 type AddTaskType = TaskType & { processId: number };
 
 export const ColumnList = () => {
-  const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+  const { todoListData, setTodoListData } = useData();
+  // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
 
   useEffect(() => {
     const fetchTodoList = async () => {
