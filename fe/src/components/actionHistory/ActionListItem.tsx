@@ -51,8 +51,19 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
         <span className="userName">@{userName}</span>
         <span className="actionBody">
           <span className="bold">{title}</span>
-          을(를) <span className="bold">{from}</span>에서{' '}
-          <span className="bold">{to}</span>으로{' '}
+          을(를){' '}
+          {from && (
+            <>
+              <span className="bold">{from}</span>
+              <span>에서 </span>
+            </>
+          )}
+          {to && (
+            <>
+              <span className="bold">{to}</span>
+              <span>으로 </span>
+            </>
+          )}
           <span className="bold">{action}</span>
           하였습니다.
         </span>
