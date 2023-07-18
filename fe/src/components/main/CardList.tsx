@@ -68,7 +68,11 @@ export const CardList: React.FC<CardProps> = ({
   }, [tasks]);
 
   return (
-    <CardListLayout onWheel={scrollVertically} ref={verticalScrollRef}>
+    <CardListLayout
+      onWheel={scrollVertically}
+      ref={verticalScrollRef}
+      className="layout"
+    >
       {isAddMode && (
         <AddModeCard
           processId={processId}
@@ -111,5 +115,9 @@ export const CardListLayout = styled.div`
   gap: 10px;
   height: 100%;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  // overscroll-behavior: contain;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

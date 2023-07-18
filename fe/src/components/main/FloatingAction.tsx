@@ -7,8 +7,6 @@ type FABStyledProps = {
 };
 
 type FloatingActionProps = {
-  // title: string;
-  // numberOfTasks: number;
   onNewColumn?: () => void;
 };
 
@@ -16,7 +14,6 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
   onNewColumn,
 }) => {
   const [isSelectMode, setIsSelectMode] = useState(false);
-  const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
   const changeModeHandler = () => {
     setIsSelectMode((prev) => !prev);
@@ -41,9 +38,9 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
   };
 
   return (
-    <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
-      {(isSelectMode || isAnimatingOut) && (
-        <div className={`selectMode ${isAnimatingOut ? 'animating-out' : ''}`}>
+    <FloatingActionBtnLayout mode={isSelectMode}>
+      {isSelectMode && (
+        <div className="selectMode">
           <Button
             variant="contained"
             pattern="text-only"
@@ -103,6 +100,7 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
     background-color: ${({ theme: { colors } }) => colors.surfaceBrand};
     border-radius: ${({ theme: { border } }) => border.radius50};
   }
+
   .fabBtn button {
     transform: rotate(0deg);
   }
