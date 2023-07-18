@@ -51,7 +51,7 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: newTitle,
+        processName: newTitle,
       }),
     });
 

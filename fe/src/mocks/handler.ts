@@ -82,6 +82,18 @@ const handlers = [
       ctx.status(200),
     );
   }),
+
+  rest.post('/process', (req, res, ctx) => {
+    const newProcess: any = req.body.processName;
+
+    return res(
+      ctx.json({
+        statusCode: 200,
+        message: `컬럼 ${newProcess} 생성 성공`,
+      }),
+      ctx.status(200),
+    );
+  }),
 ];
 
 export default handlers;

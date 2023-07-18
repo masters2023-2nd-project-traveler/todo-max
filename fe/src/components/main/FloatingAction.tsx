@@ -22,6 +22,22 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
     setIsSelectMode((prev) => !prev);
   };
 
+  const handleSubmit = async () => {
+    const response = await fetch(`/process`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        processName: '새 리스트',
+      }),
+    });
+
+    const responseData = await response.json();
+    console.log(responseData);
+    onNewColumn();
+  };
+
   // useEffect(() => {
   //   let timeout;
   //   if (isAnimatingOut) {
@@ -49,7 +65,7 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
             variant="contained"
             pattern="text-only"
             text="컬럼 추가"
-            onClick={onNewColumn}
+            onClick={handleSubmit}
           />
           <Button variant="contained" pattern="text-only" text="컬럼 삭제" />
         </div>

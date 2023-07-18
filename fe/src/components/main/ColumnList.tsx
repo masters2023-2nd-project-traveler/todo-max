@@ -113,7 +113,7 @@ export const ColumnList = () => {
         ...prevData,
         {
           processId: newProcessId,
-          name: '새로운 컬럼',
+          name: '새 리스트',
           tasks: [],
         },
       ];
