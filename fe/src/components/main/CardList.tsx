@@ -111,8 +111,6 @@ export const CardListLayout = styled.div`
   flex-direction: column;
   gap: 10px;
   height: 100%;
-  // scroll-snap-type: y mandatory;
   overflow-y: auto;
-  border: 5px solid ${({ theme: { colors } }) => colors.surface};
   overscroll-behavior: contain;
 `;

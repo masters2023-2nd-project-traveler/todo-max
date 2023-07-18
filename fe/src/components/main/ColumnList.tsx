@@ -131,8 +131,6 @@ const MainLayout = styled.div`
   height: 85vh;
 
   background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
-
-  border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
 
 const ColumnLayout = styled.div`
@@ -142,6 +140,4 @@ const ColumnLayout = styled.div`
   height: 100%;
   overflow: hidden;
   overflow-x: auto;
-
-  border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
