@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { ColumnItem } from './ColumnItem';
+import { FloatingActionBtn } from './FloatingAction';
 
 type TaskType = {
   taskId: number;
@@ -67,6 +68,24 @@ export const ColumnList = () => {
     });
   };
 
+  const handleNewColumn = () => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      const newProcessId =
+        Math.max(...prevData.map((item) => item.processId)) + 1;
+
+      return [
+        ...prevData,
+        {
+          processId: newProcessId,
+          name: '새로운 컬럼',
+          tasks: [],
+        },
+      ];
+    });
+  };
+
   if (todoListData === null) {
     return <div>Loading...</div>;
   }
@@ -86,6 +105,7 @@ export const ColumnList = () => {
           />
         ))}
       </ColumnLayout>
+      <FloatingActionBtn onNewColumn={handleNewColumn} />
     </MainLayout>
   );
 };

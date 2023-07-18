@@ -11,7 +11,6 @@ function App() {
       <GlobalStyles />
       <Header />
       <ColumnList />
-      <FloatingActionBtn />
     </ThemeProvider>
   );
 }

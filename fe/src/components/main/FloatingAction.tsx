@@ -9,10 +9,12 @@ type FABStyledProps = {
 type FloatingActionProps = {
   // title: string;
   // numberOfTasks: number;
-  onAddClick?: () => void;
+  onNewColumn?: () => void;
 };
 
-export const FloatingActionBtn: React.FC<FloatingActionProps> = () => {
+export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
+  onNewColumn,
+}) => {
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
@@ -47,7 +49,12 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = () => {
     <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
       {(isSelectMode || isAnimatingOut) && (
         <div className={`selectMode ${isAnimatingOut ? 'animating-out' : ''}`}>
-          <Button variant="contained" pattern="text-only" text="컬럼 추가" />
+          <Button
+            variant="contained"
+            pattern="text-only"
+            text="컬럼 추가"
+            onClick={onNewColumn}
+          />
           <Button variant="contained" pattern="text-only" text="컬럼 삭제" />
         </div>
       )}
