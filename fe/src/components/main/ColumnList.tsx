@@ -1,5 +1,5 @@
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import { ColumnItem } from './ColumnItem';
 import { FloatingActionBtn } from './FloatingAction';
 
@@ -20,7 +20,32 @@ type AddTaskType = TaskType & { processId: number };
 
 export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+  const horizontalScrollRef = useRef(null);
+  //
+  const scrollHorizontally = (e) => {
+    e.preventDefault();
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.scrollLeft += e.deltaY;
+    }
+  };
 
+  // wheel event listener를 추가합니다.
+  useEffect(() => {
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.addEventListener('wheel', scrollHorizontally);
+    }
+
+    // Clean up function
+    return () => {
+      if (horizontalScrollRef.current) {
+        horizontalScrollRef.current.removeEventListener(
+          'wheel',
+          scrollHorizontally,
+        );
+      }
+    };
+  }, []);
+  //
   useEffect(() => {
     const fetchTodoList = async () => {
       const response = await fetch('/todolist');
@@ -91,7 +116,7 @@ export const ColumnList = () => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout onWheel={scrollHorizontally} ref={horizontalScrollRef}>
       <ColumnLayout>
         {todoListData.map((item: TodoItemType) => (
           <ColumnItem
@@ -112,11 +137,16 @@ export const ColumnList = () => {
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
+  overflow: hidden;
+  overflow-x: scroll;
   background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
+  border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
 
 const ColumnLayout = styled.div`
   width: 300px;
   display: flex;
   gap: 24px;
+
+  border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
