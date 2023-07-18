@@ -16,6 +16,7 @@ type TodoItemType = {
 };
 
 type AddTaskType = TaskType & { processId: number };
+type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
@@ -56,6 +57,25 @@ export const ColumnList = () => {
     });
   };
 
+  const handleTaskEdit = (editedTask: EditTaskType) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.map((item) =>
+        item.tasks.some((task) => task.taskId === editedTask.taskId)
+          ? {
+              ...item,
+              tasks: item.tasks.map((task) =>
+                task.taskId === editedTask.taskId
+                  ? { ...task, ...editedTask }
+                  : task,
+              ),
+            }
+          : item,
+      );
+    });
+  };
+
   if (todoListData === null) {
     return <div>Loading...</div>;
   }
@@ -71,6 +91,7 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
+            onTaskEdit={handleTaskEdit}
           />
         ))}
       </ColumnLayout>

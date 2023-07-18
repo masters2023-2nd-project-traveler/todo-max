@@ -18,9 +18,11 @@ type CardProps = {
   onCancel: () => void;
   onNewTask: (newTask: AddTaskType) => void;
   onTaskDelete: (taskId: number) => void;
+  onTaskEdit: (editedTask: EditTaskType) => void;
 };
 
 type AddTaskType = TaskType & { processId: number };
+type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const CardList: React.FC<CardProps> = ({
   tasks,
@@ -29,12 +31,10 @@ export const CardList: React.FC<CardProps> = ({
   onCancel,
   onNewTask,
   onTaskDelete,
+  onTaskEdit,
 }) => {
-  console.log('카드리스트 task', tasks);
-
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
-  const [taskList, setTaskList] = useState<TaskType[]>(tasks);
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -42,7 +42,6 @@ export const CardList: React.FC<CardProps> = ({
   };
 
   const deleteHandler = async (taskId: number) => {
-    console.log('삭제~');
     const response = await fetch(`/task/${taskId}`, {
       method: 'DELETE',
     });
@@ -50,13 +49,31 @@ export const CardList: React.FC<CardProps> = ({
     console.log(data);
 
     setIsVisible((prevVisible) => !prevVisible);
-    setTaskList(taskList.filter((task) => task.taskId !== taskId));
     onTaskDelete(taskId);
   };
 
-  useEffect(() => {
-    setTaskList(tasks);
-  }, [tasks]);
+  const updateTaskViaPatch = async (
+    taskId: number,
+    title: string,
+    body: string,
+  ) => {
+    const response = await fetch(`/task/${taskId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, contents: body }),
+    });
+
+    if (!response.ok) {
+      console.error('Error:', response.statusText);
+      return;
+    }
+
+    const updatedTask = await response.json();
+    console.log('Updated task:', updatedTask);
+    onTaskEdit({ taskId, title, contents: body });
+  };
 
   return (
     <CardListLayout>
@@ -67,7 +84,7 @@ export const CardList: React.FC<CardProps> = ({
           onNewTask={onNewTask}
         />
       )}
-      {taskList.map((item: TaskType) => (
+      {tasks.map((item: TaskType) => (
         <Card
           mode="default"
           key={item.taskId}
@@ -75,6 +92,7 @@ export const CardList: React.FC<CardProps> = ({
           contents={item.contents}
           platform={item.platform}
           modalHandler={() => modalHandler(item.taskId)}
+          onEdit={(title, body) => updateTaskViaPatch(item.taskId, title, body)}
         />
       ))}
       {isVisible && (
