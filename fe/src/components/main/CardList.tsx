@@ -42,7 +42,6 @@ export const CardList: React.FC<CardProps> = ({
     // 이 경우에만 세로 스크롤 고
     if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
       e.stopPropagation();
-      e.currentTarget.scrollTop += e.deltaY;
     }
   };
 
