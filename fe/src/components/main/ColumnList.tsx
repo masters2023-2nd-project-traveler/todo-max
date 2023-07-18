@@ -21,11 +21,9 @@ type AddTaskType = TaskType & { processId: number };
 type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnList = () => {
-
   const horizontalScrollRef = useRef(null);
   const { todoListData, setTodoListData } = useData();
   // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
-
 
   useEffect(() => {
     const fetchTodoList = async () => {
@@ -63,16 +61,23 @@ export const ColumnList = () => {
     });
   };
 
+  const handleTitleChange = (newName: string, processId: number) => {
+    // const newName = e.target.value;
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
 
-  const handleTitleChange = (e, processId) => {
-    const newName = e.target.value;
-    setTodoListData(
-      (prevData) =>
-        prevData &&
-        prevData.map((item) =>
-          item.processId === processId ? { ...item, name: newName } : item,
-        ),
-    );
+      return prevData.map((item) =>
+        item.processId === processId ? { ...item, name: newName } : item,
+      );
+    });
+
+    // setTodoListData(
+    //   (prevData) =>
+    //     prevData &&
+    //     prevData.map((item) =>
+    //       item.processId === processId ? { ...item, name: newName } : item,
+    //     ),
+    // );
   };
 
   const handleNewColumn = () => {
@@ -141,12 +146,9 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
-
             onTitleChange={handleTitleChange}
             onColumnDelete={handleColumnDelete}
-
             onTaskEdit={handleTaskEdit}
-
           />
         ))}
       </ColumnLayout>

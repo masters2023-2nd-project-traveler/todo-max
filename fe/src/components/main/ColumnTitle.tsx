@@ -8,7 +8,8 @@ type ColumnTitleProps = {
   title: string;
   numberOfTasks: number;
   onAddClick?: () => void;
-  onTitleChange: (e, processId: number) => void;
+  // onTitleChange: (e, processId: number) => void;
+  onTitleChange: (newName: string, processId: number) => void;
   processId: number;
   onColumnDelete: (processId: number) => void;
 };
@@ -36,16 +37,18 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
   const handleEditTitle = () => {
     setIsEditing((prev) => !prev);
   };
+
   const handleTitleChange = (e) => {
     setNewTitle(e.target.value);
   };
 
   const handleBlur = (e) => {
     if (e.target.value.length === 0) return;
-    handleSubmit(e, processId);
+    handleSubmit(processId);
   };
 
-  const handleSubmit = async (e, processId: number) => {
+  // const handleSubmit = async (e, processId: number) => {
+  const handleSubmit = async (processId: number) => {
     console.log('해당 Process ID: ', processId);
     console.log('Submitted 컬럼 title: ', newTitle);
 
@@ -63,7 +66,7 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
 
     console.log(responseData);
     setIsEditing((prev) => !prev);
-    onTitleChange(e, processId);
+    onTitleChange(newTitle, processId);
   };
 
   const handleDelete = async () => {
