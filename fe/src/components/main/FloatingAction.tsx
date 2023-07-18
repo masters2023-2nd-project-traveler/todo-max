@@ -16,13 +16,13 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = () => {
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  const changeModeHandler = () => {
-    if (isSelectMode) {
-      setIsAnimatingOut(true);
-    } else {
-      setIsSelectMode(true);
-    }
-  };
+  // const changeModeHandler = () => {
+  //   if (isSelectMode) {
+  //     setIsAnimatingOut(true);
+  //   } else {
+  //     setIsSelectMode(true);
+  //   }
+  // };
 
   useEffect(() => {
     let timeout;
@@ -34,6 +34,14 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = () => {
     }
     return () => clearTimeout(timeout);
   }, [isAnimatingOut]);
+
+  const changeModeHandler = () => {
+    if (!isSelectMode && !isAnimatingOut) {
+      setIsSelectMode(true);
+    } else if (isSelectMode && !isAnimatingOut) {
+      setIsAnimatingOut(true);
+    }
+  };
 
   return (
     <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
@@ -66,6 +74,8 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
           flex-direction: column;
           justify-content: center;
           background-color: ${({ theme: { colors } }) => colors.surfaceDefault};
+          // background-color: transparent;
+
           border-radius: 16px 16px 28px 16px;
         `
       : css`
@@ -115,6 +125,10 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
   ${(props) =>
     props.mode
       ? css`
+          .fabBtn button {
+            animation: ${tilt} 0.5s ease-in-out;
+            animation-fill-mode: forwards;
+          }
           .selectMode {
             animation: ${expand} 0.5s ease-in-out;
           }
@@ -126,6 +140,10 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
           }
         `
       : css`
+          .fabBtn button {
+            animation: ${normal} 0.5s ease-in-out;
+            animation-fill-mode: forwards;
+          }
           .selectMode {
             animation: ${shrink} 0.5s ease-in-out;
           }
@@ -175,5 +193,24 @@ const fadeOut = keyframes`
   }
   100% {
     opacity: 0;
+  }
+`;
+
+const tilt = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(45deg)
+    
+  }
+`;
+
+const normal = keyframes`
+  0% {
+    transform: rotate(45deg)
+  }
+  100% {
+    transform: rotate(0deg);
   }
 `;
