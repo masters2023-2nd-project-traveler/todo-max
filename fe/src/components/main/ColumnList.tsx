@@ -20,35 +20,10 @@ type AddTaskType = TaskType & { processId: number };
 
 export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
-  const [slide, setSlide] = useState(true);
   const horizontalScrollRef = useRef(null);
-  //
-
-  // const onWheel = (e: any) => {
-  //   const { deltaY } = e;
-  //   const el = horizontalScrollRef.current;
-  //   if (!el) return;
-
-  //   if (deltaY > 0 && slide === true) {
-  //     setSlide(false);
-  //     el.scrollTo({
-  //       left: el.scrollLeft + deltaY * 5,
-  //       behavior: 'smooth',
-  //     });
-  //     setSlide(true);
-  //   }
-  //   if (deltaY < 0 && slide === true) {
-  //     setSlide(false);
-  //     el.scrollTo({
-  //       left: el.scrollLeft + deltaY * 5,
-  //       behavior: 'smooth',
-  //     });
-  //     setSlide(true);
-  //   }
-  // };
 
   const scrollHorizontally = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (horizontalScrollRef.current) {
       horizontalScrollRef.current.scrollLeft += e.deltaY;
     }

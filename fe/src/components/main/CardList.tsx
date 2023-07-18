@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card/Card';
 import { Modal } from '../modal/Modal';
@@ -35,6 +35,16 @@ export const CardList: React.FC<CardProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
   const [taskList, setTaskList] = useState<TaskType[]>(tasks);
+  const verticalScrollRef = useRef(null);
+
+  const scrollVertically = (e) => {
+    // scrollHeight이 clientHeight보다 크면 스크롤 돼야함
+    // 이 경우에만 세로 스크롤 고
+    if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
+      e.stopPropagation();
+      e.currentTarget.scrollTop += e.deltaY;
+    }
+  };
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -59,7 +69,7 @@ export const CardList: React.FC<CardProps> = ({
   }, [tasks]);
 
   return (
-    <CardListLayout onWheel={(e) => e.stopPropagation()}>
+    <CardListLayout onWheel={scrollVertically} ref={verticalScrollRef}>
       {isAddMode && (
         <AddModeCard
           processId={processId}
@@ -104,4 +114,5 @@ export const CardListLayout = styled.div`
   // scroll-snap-type: y mandatory;
   overflow-y: auto;
   border: 5px solid ${({ theme: { colors } }) => colors.surface};
+  overscroll-behavior: contain;
 `;
