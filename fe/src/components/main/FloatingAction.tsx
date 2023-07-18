@@ -73,8 +73,6 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
           flex-direction: column;
           justify-content: center;
           background-color: ${({ theme: { colors } }) => colors.surfaceDefault};
-          // background-color: transparent;
-
           border-radius: 16px 16px 28px 16px;
         `
       : css`
@@ -84,6 +82,36 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
           border-radius: ${({ theme: { border } }) => border.radius50};
           justify-content: center;
           align-items: center;
+        `}
+
+  ${(props) =>
+    props.mode
+      ? css`
+          .fabBtn button {
+            animation: ${tilt} 0.5s ease-in-out;
+            animation-fill-mode: forwards;
+          }
+          .selectMode {
+            animation: ${expand} 0.5s ease-in-out;
+          }
+          .selectMode.animating-out {
+            animation: ${shrink} 0.5s ease-in-out;
+          }
+          .selectMode button {
+            animation: ${fadeIn} 0.5s ease-in-out;
+          }
+        `
+      : css`
+          // .fabBtn button {
+          //   animation: ${normal} 0.5s ease-in-out;
+          //   animation-fill-mode: forwards;
+          // }
+          .selectMode {
+            animation: ${shrink} 0.5s ease-in-out;
+          }
+          .selectMode button {
+            animation: ${fadeOut} 0.5s ease-in-out;
+          }
         `}
 
   .fabBtn {
@@ -123,36 +151,6 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
     animation: 0.5s ease-in-out forwards;
     animation-fill-mode: forwards;
   }
-
-  ${(props) =>
-    props.mode
-      ? css`
-          .fabBtn button {
-            animation: ${tilt} 0.5s ease-in-out;
-            animation-fill-mode: forwards;
-          }
-          .selectMode {
-            animation: ${expand} 0.5s ease-in-out;
-          }
-          .selectMode.animating-out {
-            animation: ${shrink} 0.5s ease-in-out;
-          }
-          .selectMode button {
-            animation: ${fadeIn} 0.5s ease-in-out;
-          }
-        `
-      : css`
-          // .fabBtn button {
-          //   animation: ${normal} 0.5s ease-in-out;
-          //   animation-fill-mode: forwards;
-          // }
-          .selectMode {
-            animation: ${shrink} 0.5s ease-in-out;
-          }
-          .selectMode button {
-            animation: ${fadeOut} 0.5s ease-in-out;
-          }
-        `}
 `;
 const expand = keyframes`
   0% {
