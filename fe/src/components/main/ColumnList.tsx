@@ -145,7 +145,7 @@ export const ColumnList = () => {
 };
 
 const MainLayout = styled.div`
-  padding: 32px 80px 0;
+  padding: 32px 80px;
   height: 85vh;
 
   background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
@@ -157,7 +157,7 @@ const ColumnLayout = styled.div`
   width: auto;
   display: flex;
   gap: 24px;
-  height: 90%;
+  height: 100%;
   overflow: hidden;
   overflow-x: auto;
 
