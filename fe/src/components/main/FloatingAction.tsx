@@ -18,32 +18,28 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
+  const changeModeHandler = () => {
+    setIsSelectMode((prev) => !prev);
+  };
+
+  // useEffect(() => {
+  //   let timeout;
+  //   if (isAnimatingOut) {
+  //     timeout = setTimeout(() => {
+  //       setIsAnimatingOut(false);
+  //       setIsSelectMode(false);
+  //     }, 500);
+  //   }
+  //   return () => clearTimeout(timeout);
+  // }, [isAnimatingOut]);
+
   // const changeModeHandler = () => {
-  //   if (isSelectMode) {
-  //     setIsAnimatingOut(true);
-  //   } else {
+  //   if (!isSelectMode && !isAnimatingOut) {
   //     setIsSelectMode(true);
+  //   } else if (isSelectMode && !isAnimatingOut) {
+  //     setIsAnimatingOut(true);
   //   }
   // };
-
-  useEffect(() => {
-    let timeout;
-    if (isAnimatingOut) {
-      timeout = setTimeout(() => {
-        setIsAnimatingOut(false);
-        setIsSelectMode(false);
-      }, 500);
-    }
-    return () => clearTimeout(timeout);
-  }, [isAnimatingOut]);
-
-  const changeModeHandler = () => {
-    if (!isSelectMode && !isAnimatingOut) {
-      setIsSelectMode(true);
-    } else if (isSelectMode && !isAnimatingOut) {
-      setIsAnimatingOut(true);
-    }
-  };
 
   return (
     <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
@@ -108,7 +104,9 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
     background-color: ${({ theme: { colors } }) => colors.surfaceBrand};
     border-radius: ${({ theme: { border } }) => border.radius50};
   }
-
+  .fabBtn button {
+    transform: rotate(0deg);
+  }
   .fabBtn svg path {
     fill: ${({ theme: { colors } }) => colors.surfaceDefault};
   }
@@ -147,10 +145,10 @@ const FloatingActionBtnLayout = styled.div<FABStyledProps>`
           }
         `
       : css`
-          .fabBtn button {
-            animation: ${normal} 0.5s ease-in-out;
-            animation-fill-mode: forwards;
-          }
+          // .fabBtn button {
+          //   animation: ${normal} 0.5s ease-in-out;
+          //   animation-fill-mode: forwards;
+          // }
           .selectMode {
             animation: ${shrink} 0.5s ease-in-out;
           }

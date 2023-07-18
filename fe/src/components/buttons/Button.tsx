@@ -88,7 +88,7 @@ const ButtonLayout = styled.button<ButtonProps>`
 
   img {
     width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : '24px')};
-    margin-right: ${({ pattern }) => (pattern === 'icon-text' ? '4px' : '0px')};
+    margin-right: ${({ pattern }) => pattern === 'icon-text' && '4px'};
   }
 
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};
