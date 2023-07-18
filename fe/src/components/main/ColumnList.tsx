@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ColumnItem } from './ColumnItem';
 import { FloatingActionBtn } from './FloatingAction';
+import { useData } from '../../contexts/DataContext';
 
 type TaskType = {
   taskId: number;
@@ -17,10 +18,14 @@ type TodoItemType = {
 };
 
 type AddTaskType = TaskType & { processId: number };
+type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnList = () => {
-  const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+
   const horizontalScrollRef = useRef(null);
+  const { todoListData, setTodoListData } = useData();
+  // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+
 
   useEffect(() => {
     const fetchTodoList = async () => {
@@ -57,6 +62,7 @@ export const ColumnList = () => {
       );
     });
   };
+
 
   const handleTitleChange = (e, processId) => {
     const newName = e.target.value;
@@ -101,6 +107,25 @@ export const ColumnList = () => {
     }
   };
 
+  const handleTaskEdit = (editedTask: EditTaskType) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.map((item) =>
+        item.tasks.some((task) => task.taskId === editedTask.taskId)
+          ? {
+              ...item,
+              tasks: item.tasks.map((task) =>
+                task.taskId === editedTask.taskId
+                  ? { ...task, ...editedTask }
+                  : task,
+              ),
+            }
+          : item,
+      );
+    });
+  };
+
   if (todoListData === null) {
     return <div>Loading...</div>;
   }
@@ -116,8 +141,12 @@ export const ColumnList = () => {
             processId={item.processId}
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
+
             onTitleChange={handleTitleChange}
             onColumnDelete={handleColumnDelete}
+
+            onTaskEdit={handleTaskEdit}
+
           />
         ))}
       </ColumnLayout>

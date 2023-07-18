@@ -20,37 +20,29 @@ const handlers = [
     return res(ctx.status(200), ctx.json(actionHistory));
   }),
 
-  rest.delete('/task/1', (_, res, ctx) => {
+  rest.delete('/task/:taskId', (req, res, ctx) => {
+    const { taskId } = req.params;
     return res(
       ctx.status(200),
       ctx.json({
         statusCode: 200,
-        message: '카드1 삭제 성공',
-      }),
-    );
-  }),
-  rest.delete('/task/2', (_, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        statusCode: 200,
-        message: '카드2 삭제 성공',
-      }),
-    );
-  }),
-  rest.delete('/task/3', (_, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        statusCode: 200,
-        message: '카드3 삭제 성공',
+        message: `카드${taskId} 삭제 성공`,
       }),
     );
   }),
 
-  // rest.get('http://52.79.68.54:8080/recipe', (req, res, ctx) => {
-  //   return res(ctx.status(200), ctx.json(recipe));
-  // }),
+  rest.patch('/task/:taskId', (req, res, ctx) => {
+    // const { taskId } = req.params;
+    const testBody = req.body;
+    console.log(testBody);
+
+    return res(
+      ctx.json({
+        statusCode: 200,
+        message: '카드 수정 성공',
+      }),
+    );
+  }),
 
   rest.post('/task', (req, res, ctx) => {
     const newTask: any = req.body;

@@ -17,9 +17,11 @@ type ColumnItemProps = {
   onTaskDelete: (taskId: number) => void;
   onTitleChange: (e, processId: number) => void;
   onColumnDelete: (processId: number) => void;
+  onTaskEdit: (editedTask: EditTaskType) => void;
 };
 
 type AddTaskType = TaskType & { processId: number };
+type EditTaskType = { taskId: number; title: string; contents: string };
 
 export const ColumnItem: React.FC<ColumnItemProps> = ({
   processId,
@@ -29,10 +31,8 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
   onTaskDelete,
   onTitleChange,
   onColumnDelete,
+  onTaskEdit,
 }) => {
-  console.log('tasks', tasks);
-  console.log('tasks', tasks.length);
-
   const numberOfTasks = tasks.length;
   const [isAddMode, setIsAddMode] = useState(false);
 
@@ -58,9 +58,8 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         onCancel={handleAddModeClick}
         onNewTask={onNewTask}
         onTaskDelete={onTaskDelete}
+        onTaskEdit={onTaskEdit}
       />
     </div>
   );
 };
-
-export default ColumnItem;

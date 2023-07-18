@@ -18,10 +18,11 @@
   // 원하는 규칙 추가하기
   "rules": {
     /* "quotes": ["error", "single"], */
+    "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "no-duplicate-imports": "error",
     "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
-    "no-unused-vars": "error",
+    // "no-unused-vars": "error",
     "no-multiple-empty-lines": "error",
     "no-use-before-define": "off"
   },
