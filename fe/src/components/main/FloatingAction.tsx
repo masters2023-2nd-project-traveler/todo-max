@@ -40,25 +40,6 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
     }
   };
 
-  // useEffect(() => {
-  //   let timeout;
-  //   if (isAnimatingOut) {
-  //     timeout = setTimeout(() => {
-  //       setIsAnimatingOut(false);
-  //       setIsSelectMode(false);
-  //     }, 500);
-  //   }
-  //   return () => clearTimeout(timeout);
-  // }, [isAnimatingOut]);
-
-  // const changeModeHandler = () => {
-  //   if (!isSelectMode && !isAnimatingOut) {
-  //     setIsSelectMode(true);
-  //   } else if (isSelectMode && !isAnimatingOut) {
-  //     setIsAnimatingOut(true);
-  //   }
-  // };
-
   return (
     <FloatingActionBtnLayout mode={isSelectMode || isAnimatingOut}>
       {(isSelectMode || isAnimatingOut) && (

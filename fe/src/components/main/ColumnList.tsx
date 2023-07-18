@@ -22,14 +22,6 @@ export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
   const horizontalScrollRef = useRef(null);
 
-  const scrollHorizontally = (e) => {
-    // e.preventDefault();
-    if (horizontalScrollRef.current) {
-      horizontalScrollRef.current.scrollLeft += e.deltaY;
-    }
-  };
-  //
-
   useEffect(() => {
     const fetchTodoList = async () => {
       const response = await fetch('/todolist');
@@ -38,17 +30,6 @@ export const ColumnList = () => {
     };
     fetchTodoList();
   }, []);
-
-  const handleTitleChange = (e, processId) => {
-    const newName = e.target.value;
-    setTodoListData(
-      (prevData) =>
-        prevData &&
-        prevData.map((item) =>
-          item.processId === processId ? { ...item, name: newName } : item,
-        ),
-    );
-  };
 
   const handleNewTask = (newTask: AddTaskType) => {
     setTodoListData((prevData) => {
@@ -77,6 +58,17 @@ export const ColumnList = () => {
     });
   };
 
+  const handleTitleChange = (e, processId) => {
+    const newName = e.target.value;
+    setTodoListData(
+      (prevData) =>
+        prevData &&
+        prevData.map((item) =>
+          item.processId === processId ? { ...item, name: newName } : item,
+        ),
+    );
+  };
+
   const handleNewColumn = () => {
     setTodoListData((prevData) => {
       if (!prevData) return null;
@@ -93,6 +85,20 @@ export const ColumnList = () => {
         },
       ];
     });
+  };
+
+  const handleColumnDelete = (processId: number) => {
+    setTodoListData((prevData) => {
+      if (!prevData) return null;
+
+      return prevData.filter((item) => item.processId !== processId);
+    });
+  };
+
+  const scrollHorizontally = (e) => {
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.scrollLeft += e.deltaY;
+    }
   };
 
   if (todoListData === null) {
