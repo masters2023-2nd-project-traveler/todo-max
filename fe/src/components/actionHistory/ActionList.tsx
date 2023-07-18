@@ -72,7 +72,7 @@ export const ActionList = () => {
                 variant="ghost"
                 pattern="text-only"
                 text="기록 전체 삭제"
-                onClick={onClose}
+                onClick={handleClose}
               />
             </ButtonLayout>
           </>

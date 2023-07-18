@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { CardList } from './CardList';
 import { ColumnTitle } from './ColumnTitle';
-import { FloatingActionBtn } from './FloatingAction';
 
 type TaskType = {
   taskId: number;
@@ -17,6 +16,7 @@ type ColumnItemProps = {
   onNewTask: (newTask: AddTaskType) => void;
   onTaskDelete: (taskId: number) => void;
   onTitleChange: (e, processId: number) => void;
+  onColumnDelete: (processId: number) => void;
 };
 
 type AddTaskType = TaskType & { processId: number };
@@ -28,6 +28,7 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
   onNewTask,
   onTaskDelete,
   onTitleChange,
+  onColumnDelete,
 }) => {
   console.log('tasks', tasks);
   console.log('tasks', tasks.length);
@@ -47,6 +48,7 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         onAddClick={handleAddModeClick}
         onTitleChange={onTitleChange} //
         processId={processId} //
+        onColumnDelete={onColumnDelete}
       />
 
       <CardList

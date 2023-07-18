@@ -94,6 +94,18 @@ const handlers = [
       ctx.status(200),
     );
   }),
+
+  rest.delete('/process/:processId', (req, res, ctx) => {
+    const { processId } = req.params;
+
+    return res(
+      ctx.json({
+        statusCode: 200,
+        message: `컬럼 ${processId} 삭제 성공`,
+      }),
+      ctx.status(200),
+    );
+  }),
 ];
 
 export default handlers;

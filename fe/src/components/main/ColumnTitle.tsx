@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
 import { Button } from '../buttons/Button';
+import { Modal } from '../modal/Modal';
 
 type ColumnTitleProps = {
   title: string;
@@ -9,6 +10,7 @@ type ColumnTitleProps = {
   onAddClick?: () => void;
   onTitleChange: (e, processId: number) => void;
   processId: number;
+  onColumnDelete: (processId: number) => void;
 };
 
 export const ColumnTitle: React.FC<ColumnTitleProps> = ({
@@ -17,7 +19,9 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
   onAddClick,
   onTitleChange,
   processId,
+  onColumnDelete,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -62,6 +66,25 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
     onTitleChange(e, processId);
   };
 
+  const handleDelete = async () => {
+    console.log('삭제~');
+    const response = await fetch(`/process/${processId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const responseData = await response.json();
+    console.log(responseData);
+
+    onColumnDelete(processId);
+    setIsVisible((prevVisible) => !prevVisible);
+  };
+
+  const handleClose = () => {
+    setIsVisible((prevVisible) => !prevVisible);
+  };
+
   return (
     <TitleLayout>
       <div className="textArea">
@@ -69,7 +92,6 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
           <textarea
             ref={textAreaRef}
             placeholder="제목을 입력하세요"
-            type="text"
             maxLength={50}
             value={newTitle}
             onChange={handleTitleChange}
@@ -88,8 +110,20 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
           icon="plus"
           onClick={onAddClick}
         />
-        <Button variant="ghost" pattern="icon-only" icon="close" />
+        <Button
+          variant="ghost"
+          pattern="icon-only"
+          icon="close"
+          onClick={handleClose}
+        />
       </div>
+      {isVisible && (
+        <Modal
+          alertText="선택한 리스트를 삭제할깝쇼?"
+          onClose={handleClose}
+          onClick={handleDelete}
+        />
+      )}
     </TitleLayout>
   );
 };

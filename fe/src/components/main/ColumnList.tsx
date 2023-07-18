@@ -117,6 +117,7 @@ export const ColumnList = () => {
             onNewTask={handleNewTask}
             onTaskDelete={handleTaskDelete}
             onTitleChange={handleTitleChange}
+            onColumnDelete={handleColumnDelete}
           />
         ))}
       </ColumnLayout>
