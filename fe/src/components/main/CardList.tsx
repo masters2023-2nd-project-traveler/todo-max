@@ -59,7 +59,7 @@ export const CardList: React.FC<CardProps> = ({
   }, [tasks]);
 
   return (
-    <CardListLayout>
+    <CardListLayout onWheel={(e) => e.stopPropagation()}>
       {isAddMode && (
         <AddModeCard
           processId={processId}

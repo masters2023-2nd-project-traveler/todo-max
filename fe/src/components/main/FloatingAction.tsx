@@ -35,7 +35,9 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
 
     const responseData = await response.json();
     console.log(responseData);
-    onNewColumn();
+    if (onNewColumn) {
+      onNewColumn();
+    }
   };
 
   // useEffect(() => {
