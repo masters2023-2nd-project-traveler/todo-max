@@ -20,32 +20,41 @@ type AddTaskType = TaskType & { processId: number };
 
 export const ColumnList = () => {
   const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
+  const [slide, setSlide] = useState(true);
   const horizontalScrollRef = useRef(null);
   //
+
+  // const onWheel = (e: any) => {
+  //   const { deltaY } = e;
+  //   const el = horizontalScrollRef.current;
+  //   if (!el) return;
+
+  //   if (deltaY > 0 && slide === true) {
+  //     setSlide(false);
+  //     el.scrollTo({
+  //       left: el.scrollLeft + deltaY * 5,
+  //       behavior: 'smooth',
+  //     });
+  //     setSlide(true);
+  //   }
+  //   if (deltaY < 0 && slide === true) {
+  //     setSlide(false);
+  //     el.scrollTo({
+  //       left: el.scrollLeft + deltaY * 5,
+  //       behavior: 'smooth',
+  //     });
+  //     setSlide(true);
+  //   }
+  // };
+
   const scrollHorizontally = (e) => {
     e.preventDefault();
     if (horizontalScrollRef.current) {
       horizontalScrollRef.current.scrollLeft += e.deltaY;
     }
   };
-
-  // wheel event listener를 추가합니다.
-  useEffect(() => {
-    if (horizontalScrollRef.current) {
-      horizontalScrollRef.current.addEventListener('wheel', scrollHorizontally);
-    }
-
-    // Clean up function
-    return () => {
-      if (horizontalScrollRef.current) {
-        horizontalScrollRef.current.removeEventListener(
-          'wheel',
-          scrollHorizontally,
-        );
-      }
-    };
-  }, []);
   //
+
   useEffect(() => {
     const fetchTodoList = async () => {
       const response = await fetch('/todolist');
@@ -116,8 +125,8 @@ export const ColumnList = () => {
   }
 
   return (
-    <MainLayout onWheel={scrollHorizontally} ref={horizontalScrollRef}>
-      <ColumnLayout>
+    <MainLayout>
+      <ColumnLayout onWheel={scrollHorizontally} ref={horizontalScrollRef}>
         {todoListData.map((item: TodoItemType) => (
           <ColumnItem
             key={item.processId}
@@ -137,16 +146,20 @@ export const ColumnList = () => {
 
 const MainLayout = styled.div`
   padding: 32px 80px 0;
-  overflow: hidden;
-  overflow-x: scroll;
+  height: 85vh;
+
   background-color: ${({ theme: { colors } }) => colors.surfaceAlt};
+
   border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
 
 const ColumnLayout = styled.div`
-  width: 300px;
+  width: auto;
   display: flex;
   gap: 24px;
+  height: 90%;
+  overflow: hidden;
+  overflow-x: auto;
 
   border: 5px solid ${({ theme: { colors } }) => colors.surface};
 `;
