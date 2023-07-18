@@ -23,7 +23,6 @@ type EditTaskType = { taskId: number; title: string; contents: string };
 export const ColumnList = () => {
   const horizontalScrollRef = useRef(null);
   const { todoListData, setTodoListData } = useData();
-  // const [todoListData, setTodoListData] = useState<TodoItemType[] | null>(null);
 
   useEffect(() => {
     const fetchTodoList = async () => {
@@ -62,7 +61,6 @@ export const ColumnList = () => {
   };
 
   const handleTitleChange = (newName: string, processId: number) => {
-    // const newName = e.target.value;
     setTodoListData((prevData) => {
       if (!prevData) return null;
 
@@ -70,14 +68,6 @@ export const ColumnList = () => {
         item.processId === processId ? { ...item, name: newName } : item,
       );
     });
-
-    // setTodoListData(
-    //   (prevData) =>
-    //     prevData &&
-    //     prevData.map((item) =>
-    //       item.processId === processId ? { ...item, name: newName } : item,
-    //     ),
-    // );
   };
 
   const handleNewColumn = () => {
@@ -106,12 +96,6 @@ export const ColumnList = () => {
     });
   };
 
-  const scrollHorizontally = (e) => {
-    if (horizontalScrollRef.current) {
-      horizontalScrollRef.current.scrollLeft += e.deltaY;
-    }
-  };
-
   const handleTaskEdit = (editedTask: EditTaskType) => {
     setTodoListData((prevData) => {
       if (!prevData) return null;
@@ -129,6 +113,12 @@ export const ColumnList = () => {
           : item,
       );
     });
+  };
+
+  const scrollHorizontally = (e) => {
+    if (horizontalScrollRef.current) {
+      horizontalScrollRef.current.scrollLeft += e.deltaY;
+    }
   };
 
   if (todoListData === null) {

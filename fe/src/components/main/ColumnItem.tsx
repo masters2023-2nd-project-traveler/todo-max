@@ -15,7 +15,7 @@ type ColumnItemProps = {
   tasks: TaskType[];
   onNewTask: (newTask: AddTaskType) => void;
   onTaskDelete: (taskId: number) => void;
-  onTitleChange: (e, processId: number) => void;
+  onTitleChange: (newName: string, processId: number) => void;
   onColumnDelete: (processId: number) => void;
   onTaskEdit: (editedTask: EditTaskType) => void;
 };
@@ -46,8 +46,8 @@ export const ColumnItem: React.FC<ColumnItemProps> = ({
         title={title}
         numberOfTasks={numberOfTasks}
         onAddClick={handleAddModeClick}
-        onTitleChange={onTitleChange} //
-        processId={processId} //
+        onTitleChange={onTitleChange}
+        processId={processId}
         onColumnDelete={onColumnDelete}
       />
 

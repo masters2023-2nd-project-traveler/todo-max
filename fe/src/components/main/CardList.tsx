@@ -36,7 +36,7 @@ export const CardList: React.FC<CardProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
 
-  const [taskList, setTaskList] = useState<TaskType[]>(tasks);
+  // const [taskList, setTaskList] = useState<TaskType[]>(tasks);
   const verticalScrollRef = useRef(null);
 
   const scrollVertically = (e) => {
@@ -46,7 +46,6 @@ export const CardList: React.FC<CardProps> = ({
       e.stopPropagation();
     }
   };
-
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);

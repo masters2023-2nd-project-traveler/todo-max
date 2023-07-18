@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { Button } from '../buttons/Button';
+// 개발중
+// todo
+// 컬럼 삭제 버튼과 - 컬럼 타이틀의 x 버튼 연동
+// 애니메이션
 
 type FABStyledProps = {
   mode: boolean;

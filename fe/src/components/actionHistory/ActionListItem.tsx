@@ -8,7 +8,7 @@ type ActionListItemProps = {
   action: string;
   createdTime: string;
   userName: string;
-  imageUrl?: string;
+  imageUrl: string;
 };
 
 function formatTimeDifference(dateTimeStr: string): string {
