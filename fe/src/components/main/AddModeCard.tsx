@@ -30,10 +30,10 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
   }, []);
 
   const handleSubmit = async (title: string, body: string) => {
-    console.log('Process ID: ', processId);
-    console.log('Submitted title: ', title);
-    console.log('Submitted body: ', body);
-    console.log('User environment: ', isMobile ? 'Mobile' : 'Web');
+    // console.log('Process ID: ', processId);
+    // console.log('Submitted title: ', title);
+    // console.log('Submitted body: ', body);
+    // console.log('User environment: ', isMobile ? 'Mobile' : 'Web');
 
     const response = await fetch('/task', {
       method: 'POST',
@@ -50,7 +50,6 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
 
     const addCardData = await response.json();
 
-    console.log(addCardData);
     onNewTask(addCardData.message);
     onCancel();
   };

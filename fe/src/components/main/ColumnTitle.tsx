@@ -51,8 +51,8 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
   };
 
   const handleSubmit = async (processId: number) => {
-    console.log('해당 Process ID: ', processId);
-    console.log('Submitted 컬럼 title: ', newTitle);
+    // console.log('해당 Process ID: ', processId);
+    // console.log('Submitted 컬럼 title: ', newTitle);
 
     const response = await fetch(`/process/${processId}`, {
       method: 'PATCH',
@@ -66,13 +66,12 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
 
     const responseData = await response.json();
 
-    console.log(responseData);
+    // console.log(responseData);
     setIsEditing((prev) => !prev);
     onTitleChange(newTitle, processId);
   };
 
   const handleDelete = async () => {
-    console.log('삭제~');
     const response = await fetch(`/process/${processId}`, {
       method: 'DELETE',
     });
@@ -80,7 +79,7 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const responseData = await response.json();
-    console.log(responseData);
+    // console.log(responseData);
 
     onColumnDelete(processId);
     setIsVisible((prevVisible) => !prevVisible);

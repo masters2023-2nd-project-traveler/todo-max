@@ -56,7 +56,7 @@ export const CardList: React.FC<CardProps> = ({
       method: 'DELETE',
     });
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     setIsVisible((prevVisible) => !prevVisible);
     onTaskDelete(taskId);
@@ -81,7 +81,7 @@ export const CardList: React.FC<CardProps> = ({
     }
 
     const updatedTask = await response.json();
-    console.log('Updated task:', updatedTask);
+    // console.log('Updated task:', updatedTask);
     onTaskEdit({ taskId, title, contents: body });
   };
 

@@ -9,7 +9,7 @@ const handlers = [
   }),
 
   rest.get('/history', (_, res, ctx) => {
-    console.log(actionHistory);
+    // console.log(actionHistory);
 
     return res(ctx.status(200), ctx.json(actionHistory));
   }),
@@ -34,7 +34,7 @@ const handlers = [
   rest.patch('/task/:taskId', (req, res, ctx) => {
     // const { taskId } = req.params;
     const testBody = req.body;
-    console.log(testBody);
+    // console.log(testBody);
 
     return res(
       ctx.json({

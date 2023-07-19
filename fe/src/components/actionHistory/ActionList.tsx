@@ -24,7 +24,6 @@ export const ActionList = () => {
   const fetchInitialData = async () => {
     const response = await fetch('/history');
     const data = await response.json();
-    console.log(data);
     setHistoryData(data.message);
   };
 
@@ -43,7 +42,6 @@ export const ActionList = () => {
   };
 
   const handleDelete = async () => {
-    console.log('삭제~');
     const response = await fetch('/history', {
       method: 'DELETE',
     });
