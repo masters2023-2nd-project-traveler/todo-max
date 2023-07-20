@@ -42,7 +42,7 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
   };
 
   return (
-    <FloatingActionBtnLayout mode={isSelectMode}>
+    <FloatingActionBtnLayout mode={isSelectMode ? 'true' : 'false'}>
       {isSelectMode && (
         <div className="selectMode">
           <Button
