@@ -35,7 +35,7 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
     // console.log('Submitted body: ', body);
     // console.log('User environment: ', isMobile ? 'Mobile' : 'Web');
 
-    const response = await fetch('/task', {
+    const response = await fetch('/api/task', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

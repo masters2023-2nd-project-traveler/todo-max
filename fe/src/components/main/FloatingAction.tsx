@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { Button } from '../buttons/Button';
 // 개발중
@@ -7,7 +7,7 @@ import { Button } from '../buttons/Button';
 // 애니메이션
 
 type FABStyledProps = {
-  mode: boolean;
+  mode: string;
 };
 
 type FloatingActionProps = {
@@ -24,7 +24,7 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
   };
 
   const handleSubmit = async () => {
-    const response = await fetch(`/process`, {
+    const response = await fetch(`/api/process`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export const FloatingActionBtn: React.FC<FloatingActionProps> = ({
     });
 
     const responseData = await response.json();
-    // console.log(responseData);
+    console.log(responseData);
     if (onNewColumn) {
       onNewColumn();
     }

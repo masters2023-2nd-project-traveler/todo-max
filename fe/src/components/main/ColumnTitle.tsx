@@ -37,7 +37,7 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
     setIsEditing((prev) => !prev);
   };
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTitle(e.target.value);
   };
 
@@ -54,7 +54,7 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
     // console.log('해당 Process ID: ', processId);
     // console.log('Submitted 컬럼 title: ', newTitle);
 
-    const response = await fetch(`/process/${processId}`, {
+    const response = await fetch(`/api/process/${processId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -66,19 +66,19 @@ export const ColumnTitle: React.FC<ColumnTitleProps> = ({
 
     const responseData = await response.json();
 
-    // console.log(responseData);
+    console.log(responseData);
     setIsEditing((prev) => !prev);
     onTitleChange(newTitle, processId);
   };
 
   const handleDelete = async () => {
-    const response = await fetch(`/process/${processId}`, {
+    const response = await fetch(`/api/process/${processId}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const responseData = await response.json();
+    // const responseData = await response.json();
     // console.log(responseData);
 
     onColumnDelete(processId);

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import UserImage from '../../assets/user_Image.svg';
 
 type ActionListItemProps = {
   title: string;
