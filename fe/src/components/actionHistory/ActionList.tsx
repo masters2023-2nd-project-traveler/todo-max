@@ -4,6 +4,7 @@ import { ActionListEmpty } from './ActionListEmpty';
 import { ActionListItem } from './ActionListItem';
 import { Button } from '../buttons/Button';
 import { Modal } from '../modal/Modal';
+import { useData } from '../../contexts/DataContext';
 
 type History = {
   title: string;
@@ -18,17 +19,18 @@ type History = {
 export const ActionList = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [historyData, setHistoryData] = useState<History[] | null>(null);
+  const { todoListData } = useData();
 
   const fetchInitialData = async () => {
-    const response = await fetch('http://52.79.68.54:8080/history');
+    const response = await fetch('/api/history');
     const data = await response.json();
-    console.log(data);
     setHistoryData(data.message);
   };
 
   useEffect(() => {
     fetchInitialData();
-  }, []);
+  }, [todoListData]);
+
 
   if (historyData === null) {
     return <div>Loading...</div>;
@@ -36,13 +38,12 @@ export const ActionList = () => {
 
   const isListEmpty = historyData.length === 0;
 
-  const onClose = () => {
+  const handleClose = () => {
     setIsVisible((prevVisible) => !prevVisible);
   };
 
-  const onClick = async () => {
-    console.log('삭제~');
-    const response = await fetch('http://52.79.68.54:8080/history', {
+  const handleDelete = async () => {
+    const response = await fetch('/api/history', {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -59,33 +60,9 @@ export const ActionList = () => {
           <ActionListEmpty />
         ) : (
           <>
-            {historyData.map((item: any, index: number) => (
+            {historyData.map((item: History, index: number) => (
               <React.Fragment key={index}>
-                <ActionListItem
-                  title={item.title}
-                  from={item.from}
-                  to={item.to}
-                  action={item.action}
-                  createdTime={item.createdTime}
-                  userName={item.userName}
-                  imageUrl={item.imageUrl}
-                />
-                {index !== historyData.length - 1 && (
-                  <DividingLineLayout></DividingLineLayout>
-                )}
-              </React.Fragment>
-            ))}
-            {historyData.map((item: any, index: number) => (
-              <React.Fragment key={index}>
-                <ActionListItem
-                  title={item.title}
-                  from={item.from}
-                  to={item.to}
-                  action={item.action}
-                  createdTime={item.createdTime}
-                  userName={item.userName}
-                  imageUrl={item.imageUrl}
-                />
+                <ActionListItem {...item} />
                 {index !== historyData.length - 1 && (
                   <DividingLineLayout></DividingLineLayout>
                 )}
@@ -96,7 +73,7 @@ export const ActionList = () => {
                 variant="ghost"
                 pattern="text-only"
                 text="기록 전체 삭제"
-                onClick={onClose}
+                onClick={handleClose}
               />
             </ButtonLayout>
           </>
@@ -105,8 +82,8 @@ export const ActionList = () => {
       {isVisible && (
         <Modal
           alertText="모든 사용자 활동 기록을 삭제할까요?"
-          onClose={onClose}
-          onClick={onClick}
+          onClose={handleClose}
+          onClick={handleDelete}
         />
       )}
     </>

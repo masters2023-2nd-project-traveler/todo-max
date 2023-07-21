@@ -3,7 +3,7 @@ export const todolist = {
   message: [
     {
       processId: 1,
-      processName: '해야할 일',
+      name: '해야할 일',
       tasks: [
         {
           taskId: 1,
@@ -21,7 +21,7 @@ export const todolist = {
     },
     {
       processId: 2,
-      processName: '하고있는 일',
+      name: '하고있는 일',
       tasks: [
         {
           taskId: 3,
@@ -33,7 +33,7 @@ export const todolist = {
     },
     {
       processId: 3,
-      processName: '완료한 일',
+      name: '완료한 일',
       tasks: [],
     },
   ],

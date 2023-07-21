@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import { Button } from '../buttons/Button';
 
-interface ModalProps {
+type ModalProps = {
   alertText: string;
   onClose?: () => void;
   onClick?: () => void;
-}
+};
 
 export const Modal: React.FC<ModalProps> = ({
   alertText,

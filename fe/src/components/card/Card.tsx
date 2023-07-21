@@ -4,22 +4,23 @@ import { Button } from '../buttons/Button';
 
 type Mode = 'default' | 'addEdit' | 'drag' | 'place';
 
-interface Task {
+type Task = {
   title: string;
   contents: string;
   platform?: string;
   modalHandler?: () => void;
-}
+};
 
-interface CardStyledProps {
+type CardStyledProps = {
   mode: Mode;
-}
+};
 
-interface CardProps extends Task {
+type CardProps = Task & {
   mode: Mode;
   onSubmit?: (title: string, body: string) => void;
   onCancel?: () => void;
-}
+  onEdit?: (title: string, body: string) => void;
+};
 
 export const Card: React.FC<CardProps> = ({
   mode,
@@ -29,10 +30,14 @@ export const Card: React.FC<CardProps> = ({
   modalHandler,
   onSubmit,
   onCancel,
+  onEdit,
 }) => {
+  const [currentMode, setCurrentMode] = useState(mode);
   const [titleInputValue, setTitleInputValue] = useState('');
   const [bodyInputValue, setBodyInputValue] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+
 
   useEffect(() => {
     if (textAreaRef.current) {
@@ -53,14 +58,40 @@ export const Card: React.FC<CardProps> = ({
     titleInputValue.length === 0 || bodyInputValue.length === 0;
 
   const handleButtonClick = () => {
-    if (onSubmit && !isInputEmpty) {
+    if (isEditMode && onEdit && !isInputEmpty) {
+      if (title !== titleInputValue || contents !== bodyInputValue) {
+        onEdit(titleInputValue, bodyInputValue);
+      }
+      setCurrentMode('default');
+      setIsEditMode(false);
+    } else if (onSubmit && !isInputEmpty) {
       onSubmit(titleInputValue, bodyInputValue);
+      setTitleInputValue('');
+      setBodyInputValue('');
+    }
+  };
+
+  const handleEditClick = () => {
+    setTitleInputValue(title);
+    setBodyInputValue(contents);
+    setIsEditMode(true);
+    setCurrentMode('addEdit');
+  };
+
+  const handleCancelButtonClick = () => {
+    setCurrentMode('default');
+
+    setTitleInputValue('');
+    setBodyInputValue('');
+
+    if (onCancel) {
+      onCancel();
     }
   };
 
   return (
-    <CardLayout mode={mode} className="card">
-      {mode === 'addEdit' ? (
+    <CardLayout mode={currentMode} className="card">
+      {currentMode === 'addEdit' ? (
         <>
           <input
             placeholder={title}
@@ -68,6 +99,7 @@ export const Card: React.FC<CardProps> = ({
             type="text"
             onChange={handleTitleInputChange}
             title="제목"
+            value={titleInputValue}
           />
           <textarea
             ref={textAreaRef}
@@ -77,13 +109,14 @@ export const Card: React.FC<CardProps> = ({
             maxLength={500}
             title="내용"
             rows={1}
+            value={bodyInputValue}
           />
           <div className="btns">
             <Button
               variant="contained"
               pattern="text-only"
               text="취소"
-              onClick={onCancel}
+              onClick={handleCancelButtonClick}
             />
             <Button
               variant="contained"
@@ -108,17 +141,18 @@ export const Card: React.FC<CardProps> = ({
               icon="close"
               onClick={modalHandler}
             />
-            <Button variant="ghost" pattern="icon-only" icon="edit" />
+            <Button
+              variant="ghost"
+              pattern="icon-only"
+              icon="edit"
+              onClick={handleEditClick}
+            />
           </div>
         </>
       )}
     </CardLayout>
   );
 };
-
-interface CardStyledProps {
-  mode: Mode;
-}
 
 const CardLayout = styled.div<CardStyledProps>`
   width: 300px;

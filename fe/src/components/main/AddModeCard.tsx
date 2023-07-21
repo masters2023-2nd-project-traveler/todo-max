@@ -29,13 +29,8 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
     setIsMobile(mobile);
   }, []);
 
-  const handleSubmit = (title: string, body: string) => {
-    console.log('Process ID: ', processId);
-    console.log('Submitted title: ', title);
-    console.log('Submitted body: ', body);
-    console.log('User environment: ', isMobile ? 'Mobile' : 'Web');
-
-    fetch('/task', {
+  const handleSubmit = async (title: string, body: string) => {
+    const response = await fetch('/api/task', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,15 +39,14 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
         processId: processId,
         title: title,
         contents: body,
-        platform: isMobile ? 'Mobile' : 'Web',
+        platform: isMobile ? 'mobile' : 'web',
       }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        onNewTask(data.message);
-        onCancel();
-      });
+    });
+
+    const addCardData = await response.json();
+
+    onNewTask(addCardData.message);
+    onCancel();
   };
 
   return (

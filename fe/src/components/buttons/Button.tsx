@@ -5,14 +5,16 @@ import { Plus } from './icon/Plus';
 import { Edit } from './icon/Edit';
 import { History } from './icon/History';
 
-interface ButtonProps {
+
+type ButtonProps = {
   variant: 'contained' | 'ghost';
   pattern: 'icon-only' | 'text-only' | 'icon-text';
   text?: string;
   icon?: 'close' | 'edit' | 'history' | 'plus';
   disabled?: boolean;
   onClick?: () => void;
-}
+};
+
 
 export const Button: React.FC<ButtonProps> = ({
   variant,
@@ -63,7 +65,10 @@ const ButtonLayout = styled.button<ButtonProps>`
   color: ${({ text, theme: { colors } }) =>
     text === '기록 전체 삭제'
       ? colors.textDanger
-      : text === '취소' || text === '닫기'
+      : text === '취소' ||
+        text === '닫기' ||
+        text === '컬럼 삭제' ||
+        text === '컬럼 추가'
       ? colors.textDefault
       : colors.textWhiteDefault};
 
@@ -75,7 +80,7 @@ const ButtonLayout = styled.button<ButtonProps>`
         ? colors.surfaceBrand
         : text === '삭제'
         ? colors.surfaceDanger
-        : colors.surfaceDefault
+        : colors.surfaceAlt
       : 'transparent'};
 
   width: ${({ variant, pattern }) =>
@@ -85,7 +90,7 @@ const ButtonLayout = styled.button<ButtonProps>`
 
   img {
     width: ${({ pattern }) => (pattern === 'icon-text' ? '16px' : '24px')};
-    margin-right: ${({ pattern }) => (pattern === 'icon-text' ? '4px' : '0px')};
+    margin-right: ${({ pattern }) => pattern === 'icon-text' && '4px'};
   }
 
   opacity: ${({ disabled }) => (disabled ? 0.3 : 1)};

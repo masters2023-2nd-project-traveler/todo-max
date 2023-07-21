@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Card } from '../card/Card';
 import { Modal } from '../modal/Modal';
@@ -17,9 +17,13 @@ type CardProps = {
   isAddMode: boolean;
   onCancel: () => void;
   onNewTask: (newTask: AddTaskType) => void;
+  onTaskDelete: (taskId: number) => void;
+  onTaskEdit: (editedTask: EditTaskType) => void;
 };
 
 type AddTaskType = TaskType & { processId: number };
+type EditTaskType = { taskId: number; title: string; contents: string };
+
 
 export const CardList: React.FC<CardProps> = ({
   tasks,
@@ -27,12 +31,20 @@ export const CardList: React.FC<CardProps> = ({
   processId,
   onCancel,
   onNewTask,
+  onTaskDelete,
+  onTaskEdit,
 }) => {
-  console.log('카드리스트 task', tasks);
-
   const [isVisible, setIsVisible] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<number | null>(null);
-  const [taskList, setTaskList] = useState<Task[]>(tasks);
+
+  const verticalScrollRef = useRef(null);
+
+  const scrollVertically = (e: React.WheelEvent<HTMLDivElement>) => {
+    if (e.currentTarget.scrollHeight > e.currentTarget.clientHeight) {
+      e.stopPropagation();
+    }
+  };
+
 
   const modalHandler = (taskId: number): void => {
     setIsVisible((prevVisible) => !prevVisible);
@@ -40,23 +52,45 @@ export const CardList: React.FC<CardProps> = ({
   };
 
   const deleteHandler = async (taskId: number) => {
-    console.log('삭제~');
-    const response = await fetch(`http://52.79.68.54:8080/task/${taskId}`, {
+    const response = await fetch(`/api/task/${taskId}`, {
       method: 'DELETE',
     });
     const data = await response.json();
     console.log(data);
 
     setIsVisible((prevVisible) => !prevVisible);
-    setTaskList(taskList.filter((task) => task.taskId !== taskId));
+    onTaskDelete(taskId);
   };
 
-  useEffect(() => {
-    setTaskList(tasks);
-  }, [tasks]);
+  const updateTaskViaPatch = async (
+    taskId: number,
+    title: string,
+    body: string,
+  ) => {
+    const response = await fetch(`/api/task/${taskId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, contents: body }),
+    });
+
+    if (!response.ok) {
+      console.error('Error:', response.statusText);
+      return;
+    }
+
+    // const updatedTask = await response.json();
+    // console.log('Updated task:', updatedTask);
+    onTaskEdit({ taskId, title, contents: body });
+  };
 
   return (
-    <CardListLayout>
+    <CardListLayout
+      onWheel={scrollVertically}
+      ref={verticalScrollRef}
+      className="layout"
+    >
       {isAddMode && (
         <AddModeCard
           processId={processId}
@@ -64,7 +98,7 @@ export const CardList: React.FC<CardProps> = ({
           onNewTask={onNewTask}
         />
       )}
-      {taskList.map((item: TaskType) => (
+      {tasks.map((item: TaskType) => (
         <Card
           mode="default"
           key={item.taskId}
@@ -72,6 +106,7 @@ export const CardList: React.FC<CardProps> = ({
           contents={item.contents}
           platform={item.platform}
           modalHandler={() => modalHandler(item.taskId)}
+          onEdit={(title, body) => updateTaskViaPatch(item.taskId, title, body)}
         />
       ))}
       {isVisible && (
@@ -97,4 +132,9 @@ export const CardListLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

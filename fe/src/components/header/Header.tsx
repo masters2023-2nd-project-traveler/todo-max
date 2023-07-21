@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Button } from '../buttons/Button';
 import { ActionHistory } from '../actionHistory/ActionHistory';

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import UserImage from '../../assets/user_Image.svg';
 
-interface ActionListItemProps {
+type ActionListItemProps = {
   title: string;
   from: string;
   to: string;
@@ -9,7 +8,8 @@ interface ActionListItemProps {
   createdTime: string;
   userName: string;
   imageUrl: string;
-}
+};
+
 
 function formatTimeDifference(dateTimeStr: string): string {
   const inputDate = new Date(dateTimeStr);
@@ -46,13 +46,25 @@ export const ActionListItem: React.FC<ActionListItemProps> = ({
 }) => {
   return (
     <ListItemLayout>
-      <img src={UserImage} alt="UserImage" />
+      <img src={imageUrl} alt="UserImage" />
       <div className="itemBody">
         <span className="userName">@{userName}</span>
         <span className="actionBody">
           <span className="bold">{title}</span>
-          을(를) <span className="bold">{from}</span>에서{' '}
-          <span className="bold">{to}</span>으로{' '}
+          을(를){' '}
+          {from && (
+            <>
+              <span className="bold">{from}</span>
+              <span>에서 </span>
+            </>
+          )}
+          {to && (
+            <>
+              <span className="bold">{to}</span>
+              <span>으로 </span>
+            </>
+          )}
+
           <span className="bold">{action}</span>
           하였습니다.
         </span>
@@ -74,6 +86,13 @@ const ListItemLayout = styled.li`
     gap: 8px;
     flex: 1 0 0;
     align-items: flex-start;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid ${({ theme: { colors } }) => colors.borderDefault};
   }
 
   .userName {
