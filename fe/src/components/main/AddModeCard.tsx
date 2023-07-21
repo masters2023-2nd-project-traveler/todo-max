@@ -30,11 +30,6 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
   }, []);
 
   const handleSubmit = async (title: string, body: string) => {
-    // console.log('Process ID: ', processId);
-    // console.log('Submitted title: ', title);
-    // console.log('Submitted body: ', body);
-    // console.log('User environment: ', isMobile ? 'Mobile' : 'Web');
-
     const response = await fetch('/api/task', {
       method: 'POST',
       headers: {
@@ -44,7 +39,7 @@ export const AddModeCard: React.FC<AddModeCardProps> = ({
         processId: processId,
         title: title,
         contents: body,
-        platform: isMobile ? 'Mobile' : 'Web',
+        platform: isMobile ? 'mobile' : 'web',
       }),
     });
 

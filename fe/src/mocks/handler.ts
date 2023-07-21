@@ -4,13 +4,11 @@ import { todolist } from './data/todolist';
 import { actionHistory } from './data/actionHistory';
 
 const handlers = [
-  rest.get('/api/todolist', (_, res, ctx) => {
+  rest.get('/api', (_, res, ctx) => {
     return res(ctx.status(200), ctx.json(todolist));
   }),
 
   rest.get('/api/history', (_, res, ctx) => {
-    // console.log(actionHistory);
-
     return res(ctx.status(200), ctx.json(actionHistory));
   }),
 

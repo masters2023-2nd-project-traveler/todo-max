@@ -26,7 +26,7 @@ export const ColumnList = () => {
 
   useEffect(() => {
     const fetchTodoList = async () => {
-      const response = await fetch('/api/todolist');
+      const response = await fetch('/api');
       const todoData = await response.json();
       setTodoListData(todoData.message);
     };
