@@ -19,6 +19,18 @@
 
 ## 🖥️ 동작 화면
 
+#### 컬럼 생성, 컬럼 이름 수정
+![todolist-동작-데모](https://github.com/masters2023-2nd-project-traveler/todo-max/assets/97204689/8fdc5e07-7879-49a5-92d2-e493d7cf885d)
+
+#### 카드 생성
+![todolist-동작-데모-2](https://github.com/masters2023-2nd-project-traveler/todo-max/assets/97204689/4dfa1aa7-de87-4425-a05e-5271241f4878)
+
+#### 카드 삭제, 카드 수정
+![todolist-동작-데모-3](https://github.com/masters2023-2nd-project-traveler/todo-max/assets/97204689/29dc83f6-bbe5-47c0-9436-a70f0cd8fe4f)
+
+#### 히스토리 생성, 히스토리 전체 삭제
+![todolist-동작-데모-4](https://github.com/masters2023-2nd-project-traveler/todo-max/assets/97204689/ddbb4a0b-1c21-4b31-8a88-7a88802cf651)
+
 
 <br/>
 
